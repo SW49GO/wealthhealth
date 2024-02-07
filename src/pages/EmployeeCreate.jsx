@@ -1,14 +1,22 @@
+import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectTotalEmployees } from '../features/selector'
+import { createEmployee} from '../features/store'
 import { Link } from 'react-router-dom'
 import { useForm}  from 'react-hook-form'
-import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
 
 
 function EmployeeCreate(){
     const { register, handleSubmit} = useForm()
+    const dispatch =useDispatch()
+    const totalEmployee = useSelector(selectTotalEmployees)
+    console.log('totalEmployee:', totalEmployee)
     // Custom hook to capitalize first letter
     const upperCaseFirstLetter= useUpperCaseFistLetter
     function SaveEmployee (data){
         console.log(data)
+         // Ajout du nouvel employee dans le tableau d'origine
+         dispatch(createEmployee(data))
     }
     return(
         <>
