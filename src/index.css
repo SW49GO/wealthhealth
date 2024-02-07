@@ -11,3 +11,84 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container-createEmployee {
+  text-align: center;
+  }
+.header{
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  width: 100%;
+  background: linear-gradient(to bottom, rgb(50 65 174) 5%, #FFF 10% );
+}
+.headerImg{
+  width: 8%;
+  padding: 1rem;
+}
+.headerTitle{
+  width: 17%;
+}
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 10px;
+}
+
+.createEmployee{
+  display: flex;
+  gap:2%;
+  justify-content: center;
+}
+
+.employee-button{
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(
+    to bottom,
+    rgb(66 214 188 / 90%),
+    rgb(66 214 188 / 20%)
+  );
+  color: #3241ae;
+  padding: 1rem 2rem;
+  margin: 2rem;
+  border-radius: 15px;
+  border: 2px solid #3241ae;
+  box-shadow: 5px 3px 3px #3241ae;
+}
+fieldset{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    rgb(66 214 188 / 90%),
+    rgb(66 214 188 / 20%)
+  );
+  border:2px solid #3241ae;
+  border-radius: 10px;
+  max-width: 25%;
+}
+legend{
+  font-weight: 700;
+  color: #3241ae;
+}
+.footerContainer{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  background: linear-gradient(to bottom, rgb(50 65 174) 10%, #FFF 95% , rgb(50 65 174) 5%);
+  margin-top: auto;
+}
+.footerImg{
+  width: 3rem;
+  margin: 1rem;
+}
+.footerTitle{
+  color: #5a6f08;
+  padding-left: .5rem;
+}
