@@ -18,6 +18,7 @@ code {
 }
 .container-createEmployee {
   text-align: center;
+  width: 100%;
   }
 .header{
   display: flex;
@@ -38,11 +39,14 @@ label {
   margin-top: 1rem;
   margin-bottom: 10px;
 }
-
+#create-employee{
+  width: 100%;
+}
 .createEmployee{
   display: flex;
   gap:2%;
   justify-content: center;
+  width: 100%;
 }
 
 .employee-button{
@@ -71,7 +75,6 @@ fieldset{
   );
   border:2px solid #3241ae;
   border-radius: 10px;
-  max-width: 25%;
 }
 legend{
   font-weight: 700;
@@ -114,4 +117,62 @@ legend{
   border-radius: 0 0 5px 5px;
   max-height: 10rem;
   overflow: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0rem;
+}
+td {
+  padding: 8px;
+}
+.datepickerHeader{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.datepickerContainer{
+  position:absolute;
+  top:7rem;
+  left:10rem;
+  width: 13rem;
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: rgb(66 214 188);
+}
+.dateCalendar{
+  width: auto;
+  font-size: .8rem;
+  margin: 1rem 0 0.2rem 0;
+}
+.datepickerInput{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 8rem;
+  margin: 0 auto;
+}
+.datepickerInput input{
+  width: 8rem;
+  padding-left: 5px;
+}
+.datepickerIcon{
+  position:absolute;
+  top:2px;
+  right:0;
+}
+.footerCalendar{
+  display: flex;
+  justify-content: center;
+  gap:0.6rem;
+  margin-top: 0.6rem;
+}
+.footerCalendar button {
+  border-radius: .3125rem;
+}
+@media screen and (max-width: 767.8px){
+  .createEmployee{
+    flex-direction: column;
+  }
 }

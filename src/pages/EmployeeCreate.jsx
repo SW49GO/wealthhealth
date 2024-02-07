@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom'
 import DropDown from '../components/DropDown'
 import {states} from '../datas/states'
 import {departments} from '../datas/departments'
+import DatePicker from '../components/DatePicker'
+import React from 'react'
+// import {ModalReact} from 'modal-react-sw49go'
+import { useState } from 'react'
+
 
 function EmployeeCreate(){
     const { register, handleSubmit, reset, setValue} = useForm()
@@ -27,16 +32,33 @@ function EmployeeCreate(){
          dispatch(createEmployee(data))
          reset()
     }
-    // Saving values ​​in the form
+    // Saving values ​​in the form from DropDown
     const handleOptionDepartment=(selectOption)=>{
         setValue('department', upperCaseFirstLetter(selectOption))
      }
     const handleOptionState=(selectOption)=>{
          setValue('states', selectOption)
      }
+     // Saving values ​​in the form from DatePicker
+     const handleDateSelectedBirth=(dateChoose)=>{
+        setValue('dateOfBirth', dateChoose)
+    }
+    const handleDateSelectedStart=(dateChoose)=>{
+        setValue('startDate', dateChoose)
+    }
+    // const [isOpen,setIsOpen]=useState(true)
 
     return(
         <>
+        {/* <ModalReact  isOpen={isOpen}
+            isOverlay={false}
+            themeName={'headerTheme'}
+            primary={'#ededed'}
+            styleContainerHeader={{borderBottom:'2px solid #000'}}
+            styleButton={{border:'none'}}
+            modalTitle={'{modalTitle}'}
+            actionOnClose={function () {setIsOpen(false)}}/> */}
+
         <div className="container-createEmployee">
             <h2>Create Employee</h2>
             <Link to={`/Employee`}>View Current Employees</Link>
@@ -49,11 +71,8 @@ function EmployeeCreate(){
 
                         <label htmlFor="lastName">Last Name</label>
                         <input type="text" id="lastName" required  {...register('lastName', {setValueAs: (value) => upperCaseFirstLetter(value)})}/>
-                        <label htmlFor="date-of-birth">Date of Birth</label>
-                        <input id="date-of-birth" type="text"/>
-
-                        <label htmlFor="start-date">Start Date</label>
-                        <input id="start-date" type="text" />
+                        <DatePicker idInput={'dateOfBirth'}  textLabel={'Date of Birth'} onSelect={handleDateSelectedBirth}/>
+                        <DatePicker idInput={'startDate'}  textLabel={'Start Date'} onSelect={handleDateSelectedStart}/>
                     </fieldset>
                     <fieldset className="address">
                         <legend>Address</legend>

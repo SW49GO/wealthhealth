@@ -6784,10 +6784,10 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.6"
 
-modal-react-sw49go@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/modal-react-sw49go/-/modal-react-sw49go-0.1.6.tgz"
-  integrity sha512-Rz8Ng3x8vVQ8Aag4dshAIOPaVhx00UHagi/nVAiIAG/mCWRWuz1vLThj3xS0ayHN0Mr51IthL16KTSasHIdtVQ==
+modal-react-sw49go@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/modal-react-sw49go/-/modal-react-sw49go-0.1.8.tgz"
+  integrity sha512-YENAnvWqZf3vbc2tHzMqBx08/qQVLHqqrAdvf0lboJU3/ixjMPZDOaljmQ6yQ8vgTPVV7F5j4Y3c+5bLy1xLtw==
   dependencies:
     "@testing-library/jest-dom" "^5.17.0"
     "@testing-library/react" "^13.4.0"
