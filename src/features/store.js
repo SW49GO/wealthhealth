@@ -1,5 +1,6 @@
 import { createSlice, configureStore} from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
+import employeesData from '../datas/employeesData'
 import storage from 'redux-persist/lib/storage'
 
 // Configuration telling Redux Persist to store Redux store data under the 'root' key in the specified web storage (default localStorage)
@@ -27,14 +28,22 @@ const employeeSlice = createSlice({
           states: states || '',
           zipCode: zipCode || ''
         })
-      }
+      },
+      initializeEmployees: (state) => {
+        // If the employees table is empty, initialization with the data from the file
+        if (state.employees.length === 0) {
+          employeesData.forEach((employee) => {
+            state.employees.push(employee)
+          })
+        }
+     }
     }
 })
 
 // Definition of the slice that must persist
 const persistedEmployeeSlice = persistReducer(persistConfig, employeeSlice.reducer)
 // Export actions from the slice
-export const {createEmployee} = employeeSlice.actions
+export const {createEmployee, initializeEmployees} = employeeSlice.actions
 
 // Store configuration
 export const store = configureStore({
@@ -51,3 +60,5 @@ export const store = configureStore({
 })
 // persist store
 export const persistor = persistStore(store)
+// Initialization of the list of employees at the start of the empty project
+store.dispatch(initializeEmployees())

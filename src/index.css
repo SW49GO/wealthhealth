@@ -92,3 +92,26 @@ legend{
   color: #5a6f08;
   padding-left: .5rem;
 }
+
+.dropdown-container{
+  position: relative;
+  width: 10rem;
+}
+.dropdown-header{
+  display:flex;
+  justify-content: space-between;
+  background-color: #ededed;
+  border-radius: .3125rem;
+  padding: .3125rem;
+}
+.dropdown-list{
+  position: absolute;
+  top:30;
+  width: 98%;
+  z-index: 10;
+  text-align: left;
+  background-color: #FFF;
+  border-radius: 0 0 5px 5px;
+  max-height: 10rem;
+  overflow: auto;
+}

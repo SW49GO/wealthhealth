@@ -1,23 +1,40 @@
 import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectTotalEmployees } from '../features/selector'
+import { useDispatch} from 'react-redux'
 import { createEmployee} from '../features/store'
-import { Link } from 'react-router-dom'
 import { useForm}  from 'react-hook-form'
-
+import { Link } from 'react-router-dom'
+import DropDown from '../components/DropDown'
+import {states} from '../datas/states'
+import {departments} from '../datas/departments'
 
 function EmployeeCreate(){
-    const { register, handleSubmit} = useForm()
+    const { register, handleSubmit, reset, setValue} = useForm()
     const dispatch =useDispatch()
-    const totalEmployee = useSelector(selectTotalEmployees)
-    console.log('totalEmployee:', totalEmployee)
+
     // Custom hook to capitalize first letter
     const upperCaseFirstLetter= useUpperCaseFistLetter
+
+    /**
+     * Function to save employee in persist store
+     * @param {object} data 
+     */
     function SaveEmployee (data){
         console.log(data)
-         // Ajout du nouvel employee dans le tableau d'origine
+         // Default values
+         if (!('states' in data)) { data.states = 'AL'}
+         if (!('department' in data)) { data.department = 'Engineering'}
+         // Adding the new employee to the original table
          dispatch(createEmployee(data))
+         reset()
     }
+    // Saving values ​​in the form
+    const handleOptionDepartment=(selectOption)=>{
+        setValue('department', upperCaseFirstLetter(selectOption))
+     }
+    const handleOptionState=(selectOption)=>{
+         setValue('states', selectOption)
+     }
+
     return(
         <>
         <div className="container-createEmployee">
@@ -45,20 +62,14 @@ function EmployeeCreate(){
                         <label htmlFor="city">City</label>
                         <input id="city" type="text" required {...register('city', {setValueAs: (value) => upperCaseFirstLetter(value)})}/>
                         <label>State</label>
-                        <select name="state" id="state"></select>
+                        <DropDown data={states} onSelect={handleOptionState} ASC={true}/>
                         <label htmlFor="zipCode">Zip Code</label>
                         <input id="zipCode" type="number" required {...register('zipCode')}/>
                     </fieldset>
                     <fieldset>
                         <legend>Others</legend>
                         <label>Department</label>
-                        <select name="department" id="department">
-                            <option>Sales</option>
-                            <option>Marketing</option>
-                            <option>Engineering</option>
-                            <option>Human Resources</option>
-                            <option>Legal</option>
-                        </select>
+                        <DropDown data={departments} onSelect={handleOptionDepartment} ASC={true}/>
                     </fieldset>
                 </div>
                 <button className="employee-button">Save</button>
