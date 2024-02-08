@@ -9,7 +9,7 @@ import {departments} from '../datas/departments'
 import DatePicker from '../components/DatePicker'
 import React from 'react'
 // import {ModalReact} from 'modal-react-sw49go'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 
 function EmployeeCreate(){
