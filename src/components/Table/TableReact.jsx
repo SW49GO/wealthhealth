@@ -9,7 +9,8 @@ import NavPagingTable from "./NavPagingTable"
 
 
 function TableReact({dataColumns, dataRows}){
-
+    // Taille des colonnnes
+    const widthColumn = 100 / (dataColumns.length - 1) + '%'
 //////////////////////PAGINATION/////////////////////////////
     let totalEntries = useSelector(selectTotalEmployees)
     const totalSearch = useSelector(selectTotalSearch)
@@ -43,12 +44,12 @@ function TableReact({dataColumns, dataRows}){
 if(dataColumns.length === Object.keys(dataRows[0]).length){
     return(<>
         <NavSearchInTable/>
-        <table>
+        <table className="tableReact">
             <thead>
-                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} dataRows={dataRows} backgroundRow={'234, 234, 234'}/>}
+                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} dataRows={dataRows} widthColumn={widthColumn} backgroundRow={'234, 234, 234'}/>}
             </thead>
-            <tbody>
-                <RowTable data={dataRows} backgroundRow={'234, 234, 234'} getCurrentPageData={getCurrentPageData}/>
+            <tbody className="tableReactBody">
+                <RowTable data={dataRows} widthColumn={widthColumn} backgroundRow={'234, 234, 234'} getCurrentPageData={getCurrentPageData}/>
             </tbody>
             <tfoot></tfoot>
         </table>

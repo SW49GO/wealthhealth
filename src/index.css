@@ -6,15 +6,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+.container-createEmployee {
+  text-align: center;
+  width: 100%;
+  }
 .header{
   display: flex;
   justify-content: center;
@@ -29,22 +35,32 @@ code {
 .headerTitle{
   width: 17%;
 }
-
-.container-createEmployee {
-text-align: center;
-width: 100%;
-}
-
 label {
   display: block;
   margin-top: 1rem;
   margin-bottom: 10px;
 }
-
+#create-employee{
+  width: 100%;
+}
 .createEmployee{
   display: flex;
   gap:2%;
   justify-content: center;
+  width: 100%;
+}
+.employee-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  font-size: 1rem;
+  margin-bottom: 4rem;
+}
+.employee-menus, .navContainerPage{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .employee-button{
@@ -73,7 +89,6 @@ fieldset{
   );
   border:2px solid #3241ae;
   border-radius: 10px;
-  width: 25%;
 }
 legend{
   font-weight: 700;
@@ -85,6 +100,7 @@ legend{
   align-items: center;
   background: linear-gradient(to bottom, rgb(50 65 174) 10%, #FFF 95% , rgb(50 65 174) 5%);
   margin-top: auto;
+  width: 100%;
 }
 .footerImg{
   width: 3rem;
@@ -94,32 +110,28 @@ legend{
   color: #5a6f08;
   padding-left: .5rem;
 }
-h2 {
-  font-size: 1.5rem;
-  color: #5394bc;
+
+.dropdown-container{
+  position: relative;
+  width: 10rem;
 }
-a {
-  font-size: 0.8rem;
-  color: #3241ae;
-}
-.employee-container{
-  width: 90%;
-  margin:0 auto;
-  text-align: center;
-  margin-bottom: 4rem;
-}
-.employee-menus{
-  display: flex;
+.dropdown-header{
+  display:flex;
   justify-content: space-between;
-  padding: 1rem;
+  background-color: #ededed;
+  border-radius: .3125rem;
+  padding: .3125rem;
 }
-.iconSortContainer{
-  display: flex;
-  flex-direction: column;
-}
-.tdContent{
-  display: flex;
-  justify-content: space-evenly
+.dropdown-list{
+  position: absolute;
+  top:30;
+  width: 98%;
+  z-index: 10;
+  text-align: left;
+  background-color: #FFF;
+  border-radius: 0 0 5px 5px;
+  max-height: 10rem;
+  overflow: auto;
 }
 table {
   width: 100%;
@@ -129,38 +141,57 @@ table {
 td {
   padding: 8px;
 }
-.clicked{
- background-color: red;
-}
-.show{
-  visibility: visible;
-}
-.hidden{
-  display: none;
-}
-.btnPages{
-  border:none;
-  background-color: transparent;
-}
-.nbPages{
-  border:1px solid #000;
-  border-radius: 5px;
-  background: linear-gradient(
-    to top,
-    rgb(188, 189, 189, 0.6),
-    rgb(254, 254, 254)
-  );
-  padding: 4px 10px;
-}
-tbody{
-  position:relative;
-}
-.navContainerPage{
+.tdContent{
   display: flex;
   justify-content: space-between;
-  margin: 1.5rem auto;
+  padding: 0.5rem;
+}
+.tdContent span{
+  text-align: center;
+}
+.tableReactBody{
+  display: table-row-group;
+  vertical-align: middle;
+}
+.tableReactTD{
+  padding: 8px 10px;
+}
+.thStyle{
+  width: 4.8125rem;
+}
+.iconSortContainer{
+  display: flex;
+  flex-direction: column;
+}
+input[type="search"]{
+  width: 7rem;
+}
+.tableReact{
   width: 100%;
 }
+.clicked{
+  background-color: red;
+ }
+ .show{
+   visibility: visible;
+ }
+ .hidden{
+   display: none;
+ }
+ .btnPages{
+   border:none;
+   background-color: transparent;
+ }
+ .nbPages{
+   border:1px solid #000;
+   border-radius: 5px;
+   background: linear-gradient(
+     to top,
+     rgb(188, 189, 189, 0.6),
+     rgb(254, 254, 254)
+   );
+   padding: 4px 10px;
+ }
 .datepickerHeader{
   display: flex;
   justify-content: space-evenly;
@@ -181,16 +212,6 @@ tbody{
   font-size: .8rem;
   margin: 1rem 0 0.2rem 0;
 }
-.footerCalendar{
-  display: flex;
-  justify-content: center;
-  gap:0.6rem;
-  margin-top: 0.6rem;
-}
-.footerCalendar button {
-  border-radius: .3125rem;
-}
-
 .datepickerInput{
   position: relative;
   display: flex;
@@ -207,12 +228,24 @@ tbody{
   top:2px;
   right:0;
 }
+.footerCalendar{
+  display: flex;
+  justify-content: center;
+  gap:0.6rem;
+  margin-top: 0.6rem;
+}
+.footerCalendar button {
+  border-radius: .3125rem;
+}
 @media screen and (max-width: 767.8px){
-  .headerTitle{
-    width:10rem;
-  }
   .createEmployee{
     flex-direction: column;
-    align-items: center;
+  }
+  fieldset{
+    margin: 1rem;
+  }
+  .tableReact{
+    font-size: 0.4rem;
+    width: 100%;
   }
 }

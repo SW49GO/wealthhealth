@@ -4,8 +4,7 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
 import { changeColumnIndex, saveSearch } from '../../features/store'
 import { sortingEmployees } from '../../utils/sortingEmployees'
 
-function ColumnTable({ dataColumns, dataRows }) {
-//   const widthColumn = 100 / (dataColumns.length - 1) + '%'
+function ColumnTable({ dataColumns, dataRows, widthColumn }) {
   const dispatch = useDispatch()
 
   // Tableau d'état pour chaque colonne
@@ -72,8 +71,7 @@ function ColumnTable({ dataColumns, dataRows }) {
       <tr style={{ width: '100%' }}>
         {dataColumns &&
           dataColumns.map((item, index) => (
-            <th className="thStyle"  key={index} onClick={() => columnIndex(index)}>
-                {/* style={{ minWidth: widthColumn }} */}
+            <th className="thStyle" style={{ width: widthColumn }} key={index} onClick={() => columnIndex(index)}>
               <div className="tdContent">
                 <span>{item}</span>
                 <div className="iconSortContainer" onClick={() => toggleIcon(index)}>

@@ -33,15 +33,13 @@ function EmployeeList(){
   const columns = ['First Name','Last Name', 'Start Date','Date of Birth', 'Department','Street','City','State','Zip Code']
 
     return (
-        <>
          <div id="employee-div" className="employee-container">
             <h2>Current Employees</h2>
             <Link to={`/`}>Home</Link>
-            { employeesFinalArray.length>0 && <>
-            <TableReact dataColumns={columns} dataRows={resultSearch.length>0 ? resultSearch:allEmployees}/></>
-            }
+                { employeesFinalArray.length>0 && 
+                <TableReact dataColumns={columns} dataRows={resultSearch.length>0 ? resultSearch:allEmployees}/>
+                }
         </div>
-        </>
     )
 }
 export default EmployeeList
