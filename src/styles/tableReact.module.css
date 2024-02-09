@@ -1,10 +1,11 @@
 .containerTable{
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     margin: 1rem 0rem;
 }
 .thColumn{
-    width: 4.8125rem;
+    font-size: 0.9rem;
 }
 .tdColumn{
     display: flex;

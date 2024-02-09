@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
+import Styles from '../styles/dropDown.module.css'
 
 function DropDown({data, onSelect, ASC, initialOption}){
 // console.log('initialOption:', initialOption)
@@ -53,13 +54,13 @@ function DropDown({data, onSelect, ASC, initialOption}){
 
     return(
         <>
-        <div className="dropdown-container">
-            <div className="dropdown-header"  onClick={toggleDropDown}>
+        <div className={Styles.container}>
+            <div className={Styles.header} onClick={toggleDropDown}>
                 <div>{optionSelected}</div>
                 <div>{isOpen ? <FaCaretUp/> : <FaCaretDown/>}</div>
             </div>
             {isOpen &&
-            <div ref={listRef} className="dropdown-list">
+            <div ref={listRef} className={Styles.list}>
                 {datas.map((item,index)=>(
                     <div data-option={item.name} style={{padding:5}} key={index} onClick={() => {item.abbreviation ? handleOptionSelected([item.abbreviation, item.name]) :handleOptionSelected(item.name)}}
                     onMouseOver={(event) => {

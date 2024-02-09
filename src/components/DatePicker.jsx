@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { FaCaretLeft, FaCaretRight,  FaHome, FaCalendarDay} from "react-icons/fa"
 import DropDown from "./DropDown"
-
+import Styles from '../styles/datePicker.module.css'
 function DatePicker({onSelect, textLabel, idInput}){
 
     const objMonth =[{'name':'Janvier'},{'name':'Février'},{'name':'Mars'},{'name':'Avril'},{'name':'Mai'},{'name':'Juin'},{'name':'Juillet'},{'name':'Août'},{'name':'Septembre'},{'name':'Octobre'},{'name':'Novembre'},{'name':'Décembre'}]
@@ -104,27 +104,29 @@ function DatePicker({onSelect, textLabel, idInput}){
         setIsDateOpen(false)
         StartHomeDate()
     }
-
+    const handleFocus=()=>{
+        setIsDateOpen(true)
+    }
 
     return (<>
-        <div className="datepickerInputContainer">
+        <div>
              <label htmlFor={idInput}>{textLabel}</label>
-             <div className={"datepickerInput"}>
-                <input id={idInput} type="text" placeholder={dateChoose}  onClick={()=>setIsDateOpen(true)}/>
-                <FaCalendarDay className="datepickerIcon"/>
+             <div className={Styles.dateInput}>
+                <input id={idInput} type="text" placeholder={dateChoose}  onClick={()=>setIsDateOpen(true)}  onFocus={handleFocus} />
+                <FaCalendarDay className={Styles.dateIcon}/>
             </div>
         </div>
-       {isDateOpen && <div className="datepickerContainer">
-            <div className="datepickerHeader">
+       {isDateOpen && <div className={Styles.container}>
+            <div className={Styles.header}>
                 <FaCaretLeft onClick={() =>ChangeMonth('preview')} style={{paddingRight:5}}/>
                 <DropDown data={objMonth} initialOption={objMonth[choiceMonth].name}  onSelect={handleMonth} style={{width:'8rem',paddingRight:5}}/>
                 {yearsDrop.length>0 && <DropDown data={yearsDrop}  initialOption={choiceYear} onSelect={handleYear} style={{width:'7rem'}}/>}
                 <FaHome style={{padding:5, fontSize:'2rem'}} onClick={()=>StartHomeDate()}/>
                 <FaCaretRight onClick={() =>ChangeMonth('next')}/>
             </div>
-            <div className="datepickerBody">
-                <table className="dateCalendar">
-                    <thead className="dateCalendarHeader">
+            <div>
+                <table className={Styles.calendar}>
+                    <thead>
                         <tr>
                         {days.map((item,index)=>(
                             <th key={index}>{item.slice(0,2).toLowerCase()} </th>
@@ -175,7 +177,7 @@ function DatePicker({onSelect, textLabel, idInput}){
                     })()}
                     </tbody>
                 </table>
-                <div className="footerCalendar"><button onClick={()=>CloseDatePicker()}>Annuler</button><button onClick={()=>ValidDatePicker()}>Ok</button></div>
+                <div className={Styles.dateFooter}><button onClick={()=>CloseDatePicker()}>Annuler</button><button onClick={()=>ValidDatePicker()}>Ok</button></div>
             </div>
         </div>
         }

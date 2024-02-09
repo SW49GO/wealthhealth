@@ -4,7 +4,7 @@ import { selectColumn} from '../../features/selector'
 import Styles from '../../styles/tableReact.module.css'
 
 
-function RowTable({backgroundRow, getCurrentPageData }) {
+function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const indexColumn = useSelector(selectColumn)
 
   return (
@@ -28,6 +28,7 @@ function RowTable({backgroundRow, getCurrentPageData }) {
             <td className={Styles.tdRow}
               key={key}
               style={{
+                width: widthColumn,
                 backgroundColor:
                   indexColumn === tdIndex ? (index % 2 === 0 ? `rgba(${backgroundRow}, 1)` : `rgba(${backgroundRow}, 0.4)`) : 'inherit'
               }}

@@ -62,7 +62,6 @@ label {
   justify-content: space-between;
   width: 100%;
 }
-
 .employee-button{
   font-weight: 700;
   font-size: 1rem;
@@ -110,29 +109,6 @@ legend{
   color: #5a6f08;
   padding-left: .5rem;
 }
-
-.dropdown-container{
-  position: relative;
-  width: 10rem;
-}
-.dropdown-header{
-  display:flex;
-  justify-content: space-between;
-  background-color: #ededed;
-  border-radius: .3125rem;
-  padding: .3125rem;
-}
-.dropdown-list{
-  position: absolute;
-  top:30;
-  width: 98%;
-  z-index: 10;
-  text-align: left;
-  background-color: #FFF;
-  border-radius: 0 0 5px 5px;
-  max-height: 10rem;
-  overflow: auto;
-}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -167,51 +143,7 @@ input[type="search"]{
    );
    padding: 4px 10px;
  }
-.datepickerHeader{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.datepickerContainer{
-  position:absolute;
-  top:7rem;
-  left:10rem;
-  width: 13rem;
-  padding: 5px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background: rgb(66 214 188);
-}
-.dateCalendar{
-  width: auto;
-  font-size: .8rem;
-  margin: 1rem 0 0.2rem 0;
-}
-.datepickerInput{
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 8rem;
-  margin: 0 auto;
-}
-.datepickerInput input{
-  width: 8rem;
-  padding-left: 5px;
-}
-.datepickerIcon{
-  position:absolute;
-  top:2px;
-  right:0;
-}
-.footerCalendar{
-  display: flex;
-  justify-content: center;
-  gap:0.6rem;
-  margin-top: 0.6rem;
-}
-.footerCalendar button {
-  border-radius: .3125rem;
-}
+
 @media screen and (max-width: 767.8px){
   .createEmployee{
     flex-direction: column;

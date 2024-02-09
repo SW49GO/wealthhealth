@@ -5,7 +5,7 @@ import { changeColumnIndex, saveSearch } from '../../features/store'
 import { sortingEmployees } from '../../utils/sortingEmployees'
 import Styles from '../../styles/tableReact.module.css'
 
-function ColumnTable({ dataColumns, dataRows}) {
+function ColumnTable({ dataColumns, dataRows, widthColumn}) {
   const dispatch = useDispatch()
 
   // Tableau d'état pour chaque colonne
@@ -72,7 +72,7 @@ function ColumnTable({ dataColumns, dataRows}) {
       <tr>
         {dataColumns &&
           dataColumns.map((item, index) => (
-            <th className={Styles.thColumn}  key={index} onClick={() => columnIndex(index)}>
+            <th className={Styles.thColumn} style={{width: widthColumn,}} key={index} onClick={() => columnIndex(index)}>
               <div className={Styles.tdColumn}>
                 <span>{item}</span>
                 <div className={Styles.iconColumn} onClick={() => toggleIcon(index)}>
