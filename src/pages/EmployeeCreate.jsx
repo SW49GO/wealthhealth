@@ -1,15 +1,15 @@
+import React from 'react'
 import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
 import { useDispatch} from 'react-redux'
-import { createEmployee} from '../features/store'
+import { createEmployee, addEmployeeToList} from '../features/store'
 import { useForm}  from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import DropDown from '../components/DropDown'
 import {states} from '../datas/states'
 import {departments} from '../datas/departments'
 import DatePicker from '../components/DatePicker'
-import React from 'react'
-// import {ModalReact} from 'modal-react-sw49go'
-// import { useState } from 'react'
+import {ModalReact} from 'modal-react-sw49go'
+import { useState } from 'react'
 
 
 function EmployeeCreate(){
@@ -28,10 +28,27 @@ function EmployeeCreate(){
          // Default values
          if (!('states' in data)) { data.states = 'AL'}
          if (!('department' in data)) { data.department = 'Engineering'}
-         // Adding the new employee to the original table
-         dispatch(createEmployee(data))
-         reset()
+
+        // Le nouvel employee crée
+        const newEmployee = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            dateOfBirth: data.dateOfBirth,
+            startDate: data.startDate,
+            department: data.department,
+            street: data.street,
+            city: data.city,
+            states: data.states,
+            zipCode: data.zipCode
+          }
+        // Adding the new employee to the original table
+         dispatch(createEmployee(newEmployee))
+        // Adding a new employee entry
+        dispatch(addEmployeeToList(newEmployee))
+        setIsOpen(true)
+        reset()
     }
+    
     // Saving values ​​in the form from DropDown
     const handleOptionDepartment=(selectOption)=>{
         setValue('department', upperCaseFirstLetter(selectOption))
@@ -46,18 +63,21 @@ function EmployeeCreate(){
     const handleDateSelectedStart=(dateChoose)=>{
         setValue('startDate', dateChoose)
     }
-    // const [isOpen,setIsOpen]=useState(true)
+    const [isOpen,setIsOpen]=useState(false)
 
     return(
         <>
-        {/* <ModalReact  isOpen={isOpen}
-            isOverlay={false}
-            themeName={'headerTheme'}
-            primary={'#ededed'}
-            styleContainerHeader={{borderBottom:'2px solid #000'}}
-            styleButton={{border:'none'}}
-            modalTitle={'{modalTitle}'}
-            actionOnClose={function () {setIsOpen(false)}}/> */}
+        <ModalReact  isOpen={isOpen}
+            isOverlay={true}
+            styleOverlay={{opacity:'0.7'}}
+            themeName={'headerAndButtonTheme'}
+            styleContainerHeader={{borderBottom:'2px solid #000', backgroundColor:'rgb(66 214 188)'}}
+            styleButton={{border:'1px solid blue',backgroundColor:'rgb(66 214 188)'}}
+            modalTitle={'HRnet'}
+            styleContainerContent={{textAlign:'center', color:'blue'}}
+            contentModal={'Employee Created!'}
+            textButton={'Ok'}
+            actionOnClose={function () {setIsOpen(false)}}/>
 
         <div className="container-createEmployee">
             <h2>Create Employee</h2>

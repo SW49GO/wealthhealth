@@ -1,0 +1,26 @@
+.containerTable{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0rem;
+}
+.thColumn{
+    width: 4.8125rem;
+}
+.tdColumn{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+.tdColumn span{
+    text-align: center;
+}
+.iconColumn{
+    display: flex;
+    flex-direction: column;
+}
+.tdRow{
+    box-sizing: content-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

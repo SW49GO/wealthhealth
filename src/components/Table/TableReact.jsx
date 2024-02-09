@@ -1,17 +1,17 @@
+import { selectEntries, selectTotalEmployees, selectTotalSearch} from '../../features/selector'
+import Styles from '../../styles/tableReact.module.css'
+import React, { useState, useEffect } from 'react'
+import NavSearchInTable from "./NavSearchInTable"
+import NavPagingTable from "./NavPagingTable"
+import {useSelector } from 'react-redux'
 import ColumnTable from "./ColumnTable"
 import RowTable from "./RowTable"
 import PropTypes from 'prop-types'
-import NavSearchInTable from "./NavSearchInTable"
-import React, { useState, useEffect } from 'react'
-import {useSelector } from 'react-redux'
-import { selectEntries, selectTotalEmployees, selectTotalSearch} from '../../features/selector'
-import NavPagingTable from "./NavPagingTable"
-
 
 function TableReact({dataColumns, dataRows}){
-    // Taille des colonnnes
-    const widthColumn = 100 / (dataColumns.length - 1) + '%'
-//////////////////////PAGINATION/////////////////////////////
+  // Taille des colonnnes
+  // const widthColumn = 100 / (dataColumns.length) + 'vw'
+  // Pagination
     let totalEntries = useSelector(selectTotalEmployees)
     const totalSearch = useSelector(selectTotalSearch)
     const nbEntries = useSelector(selectEntries)
@@ -23,33 +23,33 @@ function TableReact({dataColumns, dataRows}){
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
   
-    // Mise à jour du nombre total de pages chaque fois que les données changent
+    // Updating the total number of pages every time the data changes
     useEffect(() => {
       setTotalPages(Math.ceil(dataRows.length / (nbEntries)))
       setCurrentPage(1)
     }, [dataRows, nbEntries])
   
-    // Récupération des données pour la page en cours
+    // Retrieving data for the current page
     const getCurrentPageData = () => {
       const startIndex = parseInt(currentPage - 1) * parseInt(nbEntries)
       // console.log('startIndex:', startIndex)
       const endIndex = parseInt(startIndex) + parseInt(nbEntries)
       // console.log('endIndex:', endIndex)
-      // Découpage des données
+      // Breaking down the data table
       return dataRows.slice(startIndex, endIndex)
     }
-///////////////////////////////////////////////////////////////////////////
+
 
 
 if(dataColumns.length === Object.keys(dataRows[0]).length){
     return(<>
         <NavSearchInTable/>
-        <table className="tableReact">
+        <table className={Styles.containerTable}>
             <thead>
-                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} dataRows={dataRows} widthColumn={widthColumn} backgroundRow={'234, 234, 234'}/>}
+                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} dataRows={dataRows} backgroundRow={'234, 234, 234'}/>}
             </thead>
-            <tbody className="tableReactBody">
-                <RowTable data={dataRows} widthColumn={widthColumn} backgroundRow={'234, 234, 234'} getCurrentPageData={getCurrentPageData}/>
+            <tbody>
+                <RowTable data={dataRows} backgroundRow={'234, 234, 234'} getCurrentPageData={getCurrentPageData}/>
             </tbody>
             <tfoot></tfoot>
         </table>

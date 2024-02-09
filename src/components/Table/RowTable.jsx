@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import {useSelector } from 'react-redux'
 import { selectColumn} from '../../features/selector'
+import Styles from '../../styles/tableReact.module.css'
 
 
-function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
+function RowTable({backgroundRow, getCurrentPageData }) {
   const indexColumn = useSelector(selectColumn)
 
   return (
@@ -24,10 +25,9 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
           }}
         >
           {Object.keys(item).map((key, tdIndex) => (
-            <td className='tableReactTD'
+            <td className={Styles.tdRow}
               key={key}
               style={{
-                width: widthColumn,
                 backgroundColor:
                   indexColumn === tdIndex ? (index % 2 === 0 ? `rgba(${backgroundRow}, 1)` : `rgba(${backgroundRow}, 0.4)`) : 'inherit'
               }}

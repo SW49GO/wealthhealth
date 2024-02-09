@@ -141,33 +141,8 @@ table {
 td {
   padding: 8px;
 }
-.tdContent{
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-}
-.tdContent span{
-  text-align: center;
-}
-.tableReactBody{
-  display: table-row-group;
-  vertical-align: middle;
-}
-.tableReactTD{
-  padding: 8px 10px;
-}
-.thStyle{
-  width: 4.8125rem;
-}
-.iconSortContainer{
-  display: flex;
-  flex-direction: column;
-}
 input[type="search"]{
   width: 7rem;
-}
-.tableReact{
-  width: 100%;
 }
 .clicked{
   background-color: red;
@@ -242,7 +217,7 @@ input[type="search"]{
     flex-direction: column;
   }
   fieldset{
-    margin: 1rem;
+    margin: 1rem 5rem;
   }
   .tableReact{
     font-size: 0.4rem;

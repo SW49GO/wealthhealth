@@ -4,8 +4,21 @@
  * @returns {string} 
  */
 export function useUpperCaseFistLetter(word){
-    //Checks that the word is entirely alphanumeric
-    if(word && /^[A-Za-z]+$/.test(word)){
-        return word.charAt(0).toUpperCase() + word.slice(1)
-    }
+    // Check the word or multiple words
+    if (word && typeof word === 'string' && word.trim().length > 0) {
+        // Use space to separate word
+        const words = word.trim().split(/\s+/);
+
+        const capitalizedWords = words.map((w, index) => {
+            // Capitalize the first word only
+            if (index === 0 && /^[A-Za-z]+$/.test(w)) {
+                return w.charAt(0).toUpperCase() + w.slice(1);
+            } else {
+                return w;
+            }
+        });
+
+        // Return all words
+        return capitalizedWords.join(' ');
+    } 
 }

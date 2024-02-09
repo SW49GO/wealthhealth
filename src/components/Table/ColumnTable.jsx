@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
 import { changeColumnIndex, saveSearch } from '../../features/store'
 import { sortingEmployees } from '../../utils/sortingEmployees'
+import Styles from '../../styles/tableReact.module.css'
 
-function ColumnTable({ dataColumns, dataRows, widthColumn }) {
+function ColumnTable({ dataColumns, dataRows}) {
   const dispatch = useDispatch()
 
   // Tableau d'état pour chaque colonne
@@ -68,13 +69,13 @@ function ColumnTable({ dataColumns, dataRows, widthColumn }) {
 
   return (
     <>
-      <tr style={{ width: '100%' }}>
+      <tr>
         {dataColumns &&
           dataColumns.map((item, index) => (
-            <th className="thStyle" style={{ width: widthColumn }} key={index} onClick={() => columnIndex(index)}>
-              <div className="tdContent">
+            <th className={Styles.thColumn}  key={index} onClick={() => columnIndex(index)}>
+              <div className={Styles.tdColumn}>
                 <span>{item}</span>
-                <div className="iconSortContainer" onClick={() => toggleIcon(index)}>
+                <div className={Styles.iconColumn} onClick={() => toggleIcon(index)}>
                   <FaCaretUp style={{ opacity: isChoice[index] === null ? 0.3 : isChoice[index] ? 1 : 0.3 }} />
                   <FaCaretDown style={{ opacity: isChoice[index] === null ? 0.3 : isChoice[index] ? 0.3 : 1 }} />
                 </div>
