@@ -3,6 +3,7 @@ import { sortingEmployees } from '../../utils/sortingEmployees'
 import Styles from '../../styles/tableReact.module.css'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 
 
@@ -93,4 +94,9 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
   )
 }
 
+ColumnTable.propTypes = {
+  dataColumns: PropTypes.array,
+  dataRows: PropTypes.array,
+  widthColumn: PropTypes.string
+  }
 export default ColumnTable

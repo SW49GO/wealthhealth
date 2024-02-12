@@ -13,14 +13,12 @@ const persistConfig = {
 const employeeSlice = createSlice({
     name: 'employeeSlice',
     initialState: {
-      employees: [],
-      listEmployeesAdd: [],
-      newEmployeeIndex: null
+      employees: []
     },
     reducers: {
       createEmployee: (state, action) => {
         const {firstName, lastName, dateOfBirth, startDate, department, street, city, states, zipCode,} = action.payload
-        // Ajoute l'employé au tableau de base
+        // Adds the employee to the master table
         state.employees.push({
           firstName: firstName || '',
           lastName: lastName || '',
@@ -33,25 +31,17 @@ const employeeSlice = createSlice({
           zipCode: zipCode || ''
         })
       },
-      saveListEmployees: (state,action)=>{
-        state.listEmployeesAdd = action.payload
-      },
-      addEmployeeToList: (state, action) => {
-        state.listEmployeesAdd.push(action.payload)
-        state.newEmployeeIndex = state.employees.length - 1
-      },
-      clearNewEmployeeIndex: (state) => {
-        state.newEmployeeIndex = null
+      removeEmployee: (state, action)=>{
+        state.employees = action.payload
       },
       initializeEmployees: (state) => {
-        // Vérifiez si le tableau employees est vide
+        // Checks if the employees table is empty when the app starts
         if (state.employees.length === 0) {
           employeesData.forEach((employee) => {
             state.employees.push(employee);
           });
         }
       }
-
     }
   })
 
@@ -89,7 +79,7 @@ const otherSlice = createSlice({
 const persistedEmployeeSlice = persistReducer(persistConfig, employeeSlice.reducer)
 
 // Export actions from the slice
-export const {createEmployee, addEmployeeToList, clearNewEmployeeIndex, saveListEmployees, initializeEmployees} = employeeSlice.actions
+export const {createEmployee, initializeEmployees, removeEmployee} = employeeSlice.actions
 export const {saveSearch} = searchSlice.actions
 export const {changeColumnIndex, changeNbEntries} = otherSlice.actions
 
@@ -110,5 +100,5 @@ export const store = configureStore({
 })
 // persist store
 export const persistor = persistStore(store)
-// Verif et initialisation des employees
+// Initialization of the employee table
 store.dispatch(initializeEmployees())

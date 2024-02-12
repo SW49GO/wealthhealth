@@ -57,11 +57,6 @@ label {
   font-size: 1rem;
   margin-bottom: 4rem;
 }
-.employee-menus, .navContainerPage{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
 .employee-button{
   font-weight: 700;
   font-size: 1rem;
@@ -123,28 +118,17 @@ input[type="search"]{
 .clicked{
   background-color: red;
  }
- .show{
-   visibility: visible;
- }
- .hidden{
-   display: none;
- }
- .btnPages{
-   border:none;
-   background-color: transparent;
- }
- .nbPages{
-   border:1px solid #000;
-   border-radius: 5px;
-   background: linear-gradient(
-     to top,
-     rgb(188, 189, 189, 0.6),
-     rgb(254, 254, 254)
-   );
-   padding: 4px 10px;
- }
+.error{
+  text-align: center;
+  font-size: 4rem;
+  color:red;
+  padding: 4rem;
+}
 
 @media screen and (max-width: 767.8px){
+  .headerTitle{
+    width: 25%;
+  }
   .createEmployee{
     flex-direction: column;
   }
@@ -154,5 +138,8 @@ input[type="search"]{
   .tableReact{
     font-size: 0.4rem;
     width: 100%;
+  }
+  .error{
+    font-size: 2rem;
   }
 }

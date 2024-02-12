@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react"
 import { FaCaretLeft, FaCaretRight,  FaHome, FaCalendarDay} from "react-icons/fa"
-import DropDown from "./DropDown"
 import Styles from '../styles/datePicker.module.css'
+import { useState, useEffect } from "react"
+import PropTypes from 'prop-types'
+import DropDown from "./DropDown"
+
 function DatePicker({onSelect, textLabel, idInput}){
 
     const objMonth =[{'name':'Janvier'},{'name':'Février'},{'name':'Mars'},{'name':'Avril'},{'name':'Mai'},{'name':'Juin'},{'name':'Juillet'},{'name':'Août'},{'name':'Septembre'},{'name':'Octobre'},{'name':'Novembre'},{'name':'Décembre'}]
     const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi']
 
-    // Valeur par défaut des States
+    // Default value for the Date
     const date = new Date()
     const todayDate = date.getDate()
-    console.log('todayDate:', todayDate)
     const currentMonth = date.getMonth()
     const currentYear = date.getFullYear()
 
  
-    // States pour le jour / mois / année
+    // States for Day/Month/year
     const [currentDate, setCurrentDate]= useState(todayDate)
     const [choiceMonth, setChoiceMonth] = useState(currentMonth)
     const [choiceYear, setChoiceYear] = useState(currentYear)
 
-    // Nombre de Jours dans le mois et l'année choisis
+    // Number of Days in the chosen month and year
     const nbDaysofMonth = new Date(choiceYear, choiceMonth + 1, 0).getDate()
 
     /**
@@ -52,9 +53,8 @@ function DatePicker({onSelect, textLabel, idInput}){
         setFirstDaysMonth(dayOfWeek) 
     }, [choiceYear, choiceMonth])
 
-    // State pour stocker un tableau d'années
+    // State to store an array of years
     const [yearsDrop, setYearsDrop] = useState([])
-    // console.log('yearArray:',yearsDrop)
     const startYear = 1950
     useEffect(() => {
         const yearArray = []
@@ -66,13 +66,10 @@ function DatePicker({onSelect, textLabel, idInput}){
 
     // State for the selected day
     const [selectedDay, setSelectedDay] = useState(todayDate)
-    console.log('selectedDay:', selectedDay)
-    // State ouverture du DatePicker
+    // State opening of the DatePicker
     const [isDateOpen, setIsDateOpen]=useState(false)
-    console.log('isDateOpen:', isDateOpen)
 
     const HandleDayClick=(dayIndex)=>{
-        console.log('dayIndex:', dayIndex)
         setSelectedDay(dayIndex === selectedDay ? selectedDay : dayIndex)
         setCurrentDate(dayIndex)
     }
@@ -83,20 +80,21 @@ function DatePicker({onSelect, textLabel, idInput}){
     const handleYear=(selectOption)=>{
         setChoiceYear(selectOption)
     }
+    // When click on Icon Home
     const StartHomeDate=()=>{
         setChoiceMonth(currentMonth)
         setChoiceYear(currentYear)
         setCurrentDate(todayDate)
         setSelectedDay(todayDate)
     }
-    const CloseDatePicker=()=>{
+    // When click on Cancel button
+    const CancelDatePicker=()=>{
         setIsDateOpen(false)
         StartHomeDate()
     }
-    // State placeholder de l'Input
-    const [dateChoose, setDateChoose]=useState('jj / mm / aaaa')
+    // State placeholder of the Input
+    const [dateChoose, setDateChoose]=useState('')
     const ValidDatePicker=()=>{
-        console.log('selectedDay:', selectedDay)
         const currentMonth = choiceMonth +1
         const validDate = `${selectedDay< 10 ? '0' + selectedDay : selectedDay}/${currentMonth< 10 ? '0' + currentMonth : currentMonth}/${choiceYear}`
         setDateChoose(validDate)
@@ -107,12 +105,18 @@ function DatePicker({onSelect, textLabel, idInput}){
     const handleFocus=()=>{
         setIsDateOpen(true)
     }
+    // Manage Enter Key
+    const handleKeyEnter = (event) => {
+        if (event.keyCode === 13) {
+            ValidDatePicker()
+        }
+      }
 
     return (<>
         <div>
              <label htmlFor={idInput}>{textLabel}</label>
              <div className={Styles.dateInput}>
-                <input id={idInput} type="text" placeholder={dateChoose}  onClick={()=>setIsDateOpen(true)}  onFocus={handleFocus} />
+                <input id={idInput} type="text" placeholder={'jj / mm / aaaa'} defaultValue={dateChoose} required onClick={()=>setIsDateOpen(true)}  onFocus={handleFocus} onKeyDown={handleKeyEnter}/>
                 <FaCalendarDay className={Styles.dateIcon}/>
             </div>
         </div>
@@ -137,16 +141,16 @@ function DatePicker({onSelect, textLabel, idInput}){
                     {(() => {
                         const rows = []
 
-                        // Boucle pour chaque semaine ->0 to firstDaysMonth = case vide
+                        // Loop for each week ->0 to firstDaysMonth = empty box
                         for (let i = 0; i < Math.ceil((firstDaysMonth + nbDaysofMonth) / 7); i++) {
                             const rowItems = []
 
-                            // Boucle pour chaque jour de la semaine
+                            // Loop for each day of the week
                             for (let j = 0; j < 7; j++) {
 
                                 const dayIndex = i * 7 + j - firstDaysMonth + 1
 
-                                // Vérifie si c'est un jour valide du mois
+                                //Check if it's a valid day of the month
                                 if (dayIndex > 0 && dayIndex <= nbDaysofMonth) {
                                 rowItems.push(
                                     <td key={dayIndex} style={{
@@ -157,12 +161,12 @@ function DatePicker({onSelect, textLabel, idInput}){
                                       }}
                                       onClick={() => HandleDayClick(dayIndex)}
                                       onMouseOver={(event) => {
-                                        event.target.style.backgroundColor = '#3fb0b8';
-                                        event.target.style.color = '#fff';
+                                        event.target.style.backgroundColor = '#3fb0b8'
+                                        event.target.style.color = '#fff'
                                       }}
                                       onMouseOut={(event) => {
-                                        event.target.style.backgroundColor = dayIndex === selectedDay ? '#3fb0b8' : '#fff';
-                                        event.target.style.color = dayIndex === selectedDay ? '#fff' : '#000';
+                                        event.target.style.backgroundColor = dayIndex === selectedDay ? '#3fb0b8' : '#fff'
+                                        event.target.style.color = dayIndex === selectedDay ? '#fff' : '#000'
                                       }}
                                     >
                                       {dayIndex}</td>
@@ -177,10 +181,16 @@ function DatePicker({onSelect, textLabel, idInput}){
                     })()}
                     </tbody>
                 </table>
-                <div className={Styles.dateFooter}><button onClick={()=>CloseDatePicker()}>Annuler</button><button onClick={()=>ValidDatePicker()}>Ok</button></div>
+                <div className={Styles.dateFooter}><button onClick={()=>CancelDatePicker()}>Annuler</button><button onClick={()=>ValidDatePicker()}>Ok</button></div>
             </div>
         </div>
         }
     </>)
+}
+
+DatePicker.propTypes = {
+    onSelect: PropTypes.func, 
+    textLabel: PropTypes.string, 
+    idInput: PropTypes.string
 }
 export default DatePicker

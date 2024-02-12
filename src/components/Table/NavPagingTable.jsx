@@ -1,4 +1,6 @@
 
+import Styles from '../../styles/tableReact.module.css'
+import PropTypes from 'prop-types'
 function NavPagingTable({currentPage,totalPages,nbEntries,totalEntries,setCurrentPage}){
   
     const handlePrevPage = () => {
@@ -13,16 +15,26 @@ function NavPagingTable({currentPage,totalPages,nbEntries,totalEntries,setCurren
       }
     }
     return( <>
-        <div className="navContainerPage">
+        <div className={Styles.navContainerPage}>
           <div>
           Showing {((currentPage - 1) * nbEntries) + 1} to {Math.min(currentPage * nbEntries, totalEntries)} of {totalEntries}
           </div>
           <div>
-            <button className="btnPages" onClick={handlePrevPage}>Preview</button>
-            <span className="nbPages">{currentPage}</span>
-            <button className="btnPages" onClick={handleNextPage}>Next</button>
+            <button className={Styles.btnPages} onClick={handlePrevPage}>Preview</button>
+            <span className={Styles.nbPages}>{currentPage}</span>
+            <button className={Styles.btnPages} onClick={handleNextPage}>Next</button>
           </div>
         </div>
       </>)
 }
+
+
+NavPagingTable.propTypes = {
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  nbEntries: PropTypes.number,
+  totalEntries: PropTypes.number,
+  setCurrentPage: PropTypes.func
+  }
+
 export default NavPagingTable

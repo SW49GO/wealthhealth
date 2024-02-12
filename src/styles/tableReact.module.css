@@ -25,3 +25,28 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.show{
+    visibility: visible;
+}
+.hidden{
+display: none;
+}
+.btnPages{
+border:none;
+background-color: transparent;
+}
+.nbPages{
+border:1px solid #000;
+border-radius: 5px;
+background: linear-gradient(
+    to top,
+    rgb(188, 189, 189, 0.6),
+    rgb(254, 254, 254)
+);
+padding: 4px 10px;
+}
+.navContainerPage, .employeeSearch{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

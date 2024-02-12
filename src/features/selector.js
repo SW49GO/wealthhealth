@@ -14,7 +14,5 @@ export const selectEmployeeByIndex = (index) => (state) => {
 export const selectSearch = (state)=>state.searchSlice.results
 export const selectTotalSearch = (state)=>selectSearch(state).length
 
-export const selectNewEmployeeIndex = (state)=>state.employeeSlice.newEmployeeIndex
-
 export const selectColumn = (state)=>state.otherSlice.columnIndex
 export const selectEntries = (state)=>state.otherSlice.nbEntries

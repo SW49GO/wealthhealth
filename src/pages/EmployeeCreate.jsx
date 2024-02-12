@@ -1,16 +1,14 @@
-import React from 'react'
 import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
-import { useDispatch} from 'react-redux'
-import { createEmployee, addEmployeeToList} from '../features/store'
-import { useForm}  from 'react-hook-form'
-import { Link } from 'react-router-dom'
-import DropDown from '../components/DropDown'
-import {states} from '../datas/states'
-import {departments} from '../datas/departments'
+import { createEmployee} from '../features/store'
 import DatePicker from '../components/DatePicker'
+import {departments} from '../datas/departments'
 import {ModalReact} from 'modal-react-sw49go'
-import { useState } from 'react'
-
+import DropDown from '../components/DropDown'
+import { useForm}  from 'react-hook-form'
+import { useDispatch} from 'react-redux'
+import { Link } from 'react-router-dom'
+import {states} from '../datas/states'
+import React, { useState } from 'react'
 
 function EmployeeCreate(){
     const { register, handleSubmit, reset, setValue} = useForm()
@@ -24,7 +22,6 @@ function EmployeeCreate(){
      * @param {object} data 
      */
     function SaveEmployee (data){
-        console.log(data)
          // Default values
          if (!('states' in data)) { data.states = 'AL'}
          if (!('department' in data)) { data.department = 'Engineering'}
@@ -41,10 +38,8 @@ function EmployeeCreate(){
             states: data.states,
             zipCode: data.zipCode
           }
-        // Adding the new employee to the original table
-         dispatch(createEmployee(newEmployee))
-        // Adding a new employee entry
-        dispatch(addEmployeeToList(newEmployee))
+        // Adding the new employee to the original array [employees]
+        dispatch(createEmployee(newEmployee))
         setIsOpen(true)
         reset()
     }
