@@ -12,36 +12,34 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
 
   // Status array for each column initializing to null
   const [isChoice, setIsChoice] = useState(new Array(dataColumns.length).fill(null))
-  // Managing the current column
-  const [clickedIndex, setClickedIndex] = useState(0)
   // Count 0-1 for toggle function
   const [clickCount, setClickCount] = useState(0)
 
   /**
-   * Function to initialize functions and states when clicked sort icons
+   * Function to initialize functions and states when clicked on column
    * @param {number} index (the column clicked)
    */
   const toggleIcon = (index) => {
-    // Update state of isChoice (null/true/false)
-    setIsChoice((prevChoices) =>
-      prevChoices.map((prevChoice, i) => (i === index ? !prevChoice : prevChoice))
-    )
-    console.log(isChoice)
+    dispatch(changeColumnIndex(index))
   
-    // If column already clicked or not
-    if (clickedIndex !== index) {
-      setClickedIndex(index);
-      setClickCount(0)
-      // Initialize icons
-      setIsChoice((prevChoices) =>
-        prevChoices.map((i) => (i === index ? true : null))
+    // Upgrade [isChoice] for the clicked column
+    setIsChoice((prevChoices) =>
+      prevChoices.map((prevChoice, i) =>
+        i === index ? (prevChoice === null ? true : !prevChoice) : false
       )
-    } else {
-      // Alternate between 0 or 1 to load function
-      setClickCount((prevCount) => (prevCount + 1) % 2)
-    }
+    )
+    // Upgrade [isChoice] for the others columns
+    setIsChoice((prevChoices) =>
+      prevChoices.map((prevChoice, i) =>
+        i !== index ? null : prevChoice
+      )
+    )
+    // Alternate between 0-1 to determinate function to be called
+    setClickCount((prevCount) => (prevCount + 1) % 2)
+    // Call function with column index 
     functionExecuted(index)
   }
+
 
   /**
    * Function to load the function to sort datas
@@ -60,21 +58,12 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
 
   const handleClickUp = (index) => {
     newData = sortingEmployees(dataRows, index, 'asc')
-    console.log('newDataAPR7S:', newData)
     dispatch(saveSearch(newData))
   }
 
   const handleClickDown = (index) => {
     newData = sortingEmployees(dataRows, index, 'desc')
-    console.log('newDataAPR7S:', newData)
     dispatch(saveSearch(newData))
-  }
-
-  // Managing the clicked column
-  const columnIndex = (index) => {
-    // Check old value of clickedIndex
-    setClickedIndex(index)
-    dispatch(changeColumnIndex(index))
   }
 
   return (
@@ -82,10 +71,10 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
       <tr>
         {dataColumns &&
           dataColumns.map((item, index) => (
-            <th className={Styles.thColumn} style={{width: widthColumn,}} key={index} onClick={() => columnIndex(index)}>
+            <th className={Styles.thColumn} style={{width: widthColumn,}} key={index} onClick={() => toggleIcon(index)}>
               <div className={Styles.tdColumn}>
                 <span>{item}</span>
-                <div className={Styles.iconColumn} onClick={() => toggleIcon(index)}>
+                <div className={Styles.iconColumn}>
                   <FaCaretUp style={{ opacity: isChoice[index] === null ? 0.3 : isChoice[index] ? 1 : 0.3 }} />
                   <FaCaretDown style={{ opacity: isChoice[index] === null ? 0.3 : isChoice[index] ? 0.3 : 1 }} />
                 </div>

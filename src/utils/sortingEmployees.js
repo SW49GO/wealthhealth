@@ -1,14 +1,16 @@
-export function sortingEmployees(data ,index, sorts){
-    console.log('indexSorting:', index)
-    console.log('sorts:', sorts)
+/**
+ * Function to sort the datas
+ * @param {array} data 
+ * @param {number} index 
+ * @param {string} sorts 
+ * @returns 
+ */
+export function sortingEmployees(data ,index , sorts){
 
     const filterColumn = Object.keys(data[0])[index]
-    console.log('filterColumn:', filterColumn)
     const newData = [...data]
-        console.log('newData:', newData)
         if (sorts==='asc'){
             if(filterColumn==='zipCode'){
-                console.log('dans Zip')
                 return newData.sort((a, b) => parseInt(a.zipCode) - parseInt(b.zipCode))
             }else if (filterColumn==='dateOfBirth' || filterColumn==='startDate'){
                     return newData.sort((a, b) => {
