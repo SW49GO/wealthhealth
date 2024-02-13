@@ -50,3 +50,38 @@ padding: 4px 10px;
     justify-content: space-between;
     width: 100%;
 }
+.infosEmployee{
+    position: absolute;
+    left:40%;
+    width: 20rem;
+    padding: 0.5rem;
+    background-color: #ededed;
+    border:1px solid #000;
+    border-radius: 10px;
+    line-height: 0.5rem;
+    z-index: 3;
+}
+.closeInfosEmployee{
+    position:relative;
+    right:-19.5rem;
+    top:-1rem;
+}
+@media screen and (max-width: 767.8px){
+    .containerTable{
+        font-size: 0.5rem;
+    }
+    .thColumn{
+        font-size: 0.4rem;
+    }
+    .employeeSearch, .navContainerPage{
+        font-size: 0.7rem;
+    }
+    .infosEmployee{
+        width: 10rem;
+    }
+    .closeInfosEmployee{
+        right: -9.5rem;
+        top: -0.5rem;
+    }
+    
+}

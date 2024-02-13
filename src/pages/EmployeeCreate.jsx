@@ -98,7 +98,7 @@ function EmployeeCreate(){
                         <label>State</label>
                         <DropDown data={states} onSelect={handleOptionState} ASC={true}/>
                         <label htmlFor="zipCode">Zip Code</label>
-                        <input id="zipCode" type="number" required {...register('zipCode')}/>
+                        <input id="zipCode" type="number"  required {...register('zipCode', { validate: value => value.length === 5 && /^\d+$/.test(value) })}/>
                     </fieldset>
                     <fieldset>
                         <legend>Others</legend>

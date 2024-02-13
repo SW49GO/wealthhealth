@@ -3,6 +3,8 @@ import { selectColumn, selectEmployees} from '../../features/selector'
 import {useDispatch, useSelector } from 'react-redux'
 import {removeEmployee} from '../../features/store'
 import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { states } from '../../datas/states'
 
 function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const indexColumn = useSelector(selectColumn)
@@ -11,11 +13,19 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const removeEntrieEmployee = false
   const dispatch = useDispatch()
   const employees = useSelector(selectEmployees)
-  const handleClickRow=(index)=>{
+  // State to show datas of one employee
+  const [showData, setShowData]= useState(null)
+
+  const handleClickRow=(index, event)=>{
     if(removeEntrieEmployee){
       const copyEmployee = [...employees]
       copyEmployee.splice(index,1)
       dispatch(removeEmployee(copyEmployee))
+    }else{
+      setShowData(index)
+      if (event) {
+        event.stopPropagation()
+      }
     }
   }
 
@@ -49,6 +59,19 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
               {item[key]}
             </td>
           ))}
+           {showData === index && (
+          <td colSpan={Object.keys(item).length} >
+            <div className={Styles.infosEmployee}>
+              <p className={Styles.closeInfosEmployee}  onClick={(event) => {event.stopPropagation(); setShowData(null)}}>X</p>
+              <p>Employee : {item.firstName} {item.lastName}</p>
+              <p>Dates : S:{item.startDate} B:{item.dateOfBirth}</p>
+              <p>Department: {item.department}</p>
+              <p>Adresses: {item.street} </p>
+              <p>&emsp;&emsp; {item.zipCode} {item.city}</p>
+              <p>State: {states.find(state => state.abbreviation === item.states)?.name} </p>
+            </div>
+          </td>
+        )}
         </tr>
       ))}
     </>

@@ -13,7 +13,7 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
   // Status array for each column initializing to null
   const [isChoice, setIsChoice] = useState(new Array(dataColumns.length).fill(null))
   // Managing the current column
-  const [clickedIndex, setClickedIndex] = useState(null)
+  const [clickedIndex, setClickedIndex] = useState(0)
   // Count 0-1 for toggle function
   const [clickCount, setClickCount] = useState(0)
 
@@ -22,23 +22,24 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
    * @param {number} index (the column clicked)
    */
   const toggleIcon = (index) => {
-    if (clickedIndex !== index) {
-      setClickCount(1)
-      // In the same column the 2nd click passed to false
-      setIsChoice((prevChoices) =>
-        prevChoices.map((i) => (i === index ? false : null))
-      )
-      // Updating the index of the selected column
-      setClickedIndex(index)
-      // Alternates between 0 and 1 to start the corresponding function
-      setClickCount((prevCount) => (prevCount + 1) % 2)
-    }
-    // Alternates between true et false
+    // Update state of isChoice (null/true/false)
     setIsChoice((prevChoices) =>
       prevChoices.map((prevChoice, i) => (i === index ? !prevChoice : prevChoice))
     )
-    // Alternates between 0 and 1 to start the corresponding function
-    setClickCount((prevCount) => (prevCount + 1) % 2)
+    console.log(isChoice)
+  
+    // If column already clicked or not
+    if (clickedIndex !== index) {
+      setClickedIndex(index);
+      setClickCount(0)
+      // Initialize icons
+      setIsChoice((prevChoices) =>
+        prevChoices.map((i) => (i === index ? true : null))
+      )
+    } else {
+      // Alternate between 0 or 1 to load function
+      setClickCount((prevCount) => (prevCount + 1) % 2)
+    }
     functionExecuted(index)
   }
 
@@ -54,23 +55,25 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
     }
   }
 
-  // Tableau après le tri des données
+  // Array ti received datas after sorting
   let newData=[]
 
   const handleClickUp = (index) => {
     newData = sortingEmployees(dataRows, index, 'asc')
+    console.log('newDataAPR7S:', newData)
     dispatch(saveSearch(newData))
   }
 
   const handleClickDown = (index) => {
     newData = sortingEmployees(dataRows, index, 'desc')
+    console.log('newDataAPR7S:', newData)
     dispatch(saveSearch(newData))
   }
 
   // Managing the clicked column
   const columnIndex = (index) => {
     // Check old value of clickedIndex
-    setClickedIndex((prevIndex) => (prevIndex === index ? prevIndex : index))
+    setClickedIndex(index)
     dispatch(changeColumnIndex(index))
   }
 

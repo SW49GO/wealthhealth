@@ -1,18 +1,19 @@
 export function sortingEmployees(data ,index, sorts){
     console.log('indexSorting:', index)
     console.log('sorts:', sorts)
-    console.log('data:', data)
-    console.log('tabKey',Object.keys(data[0])[index])
+
     const filterColumn = Object.keys(data[0])[index]
+    console.log('filterColumn:', filterColumn)
     const newData = [...data]
+        console.log('newData:', newData)
         if (sorts==='asc'){
             if(filterColumn==='zipCode'){
                 console.log('dans Zip')
                 return newData.sort((a, b) => parseInt(a.zipCode) - parseInt(b.zipCode))
             }else if (filterColumn==='dateOfBirth' || filterColumn==='startDate'){
                     return newData.sort((a, b) => {
-                            const dateA = new Date(a[filterColumn])
-                            const dateB = new Date(b[filterColumn])
+                            const dateA = convertStringToDate(a[filterColumn])
+                            const dateB = convertStringToDate(b[filterColumn])
                             return dateA - dateB
                           })
             }else{
@@ -23,12 +24,21 @@ export function sortingEmployees(data ,index, sorts){
                 return newData.sort((a, b) => parseInt(b.zipCode) - parseInt(a.zipCode))
             }else if (filterColumn==='dateOfBirth' || filterColumn==='startDate'){
                     return newData.sort((a, b) => {
-                            const dateA = new Date(a[filterColumn])
-                            const dateB = new Date(b[filterColumn])
+                            const dateA = convertStringToDate(a[filterColumn])
+                            const dateB = convertStringToDate(b[filterColumn])
                             return dateB - dateA
                           })
             }else{
                 return newData.sort((a, b) => b[filterColumn].localeCompare(a[filterColumn], 'fr'))
             }
         }
+    }
+    /**
+     * Function to convert format string Date
+     * @param {string} dateString 
+     * @returns 
+     */
+    function convertStringToDate(dateString) {
+        const [day, month, year] = dateString.split('/');
+        return new Date(year, month - 1, day);
     }
