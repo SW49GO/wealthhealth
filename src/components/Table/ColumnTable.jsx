@@ -2,32 +2,15 @@ import { changeColumnIndex, saveSearch } from '../../features/store'
 import { sortingEmployees } from '../../utils/sortingEmployees'
 import Styles from '../../styles/tableReact.module.css'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
-import { selectColumn } from '../../features/selector'
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useDispatch} from 'react-redux'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 function ColumnTable({ dataColumns, dataRows, widthColumn}) {
   const dispatch = useDispatch()
 
-  const columnSelected = useSelector(selectColumn)
-  // State to check column clicked
-  const [columnClick, setColumnClick]=useState(null)
-
   // Status array for each column initializing to null
   const [isChoice, setIsChoice] = useState(new Array(dataColumns.length).fill(null))
-  // Count 0-1 for toggle function
-  const [clickCount, setClickCount] = useState(0)
-
-  useEffect(() => {
-    // Check if the column have changed
-    if (columnClick !== null && columnClick !== columnSelected) {
-      // Passed [clickCount] to 0
-      setClickCount(0)
-    }
-    // Update column clicked
-    setColumnClick(columnSelected)
-  }, [columnSelected, columnClick])
 
   /**
    * Function to initialize functions and states when clicked on column
@@ -35,7 +18,7 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
    */
   const toggleIcon = (index) => {
     dispatch(changeColumnIndex(index))
-    setColumnClick(columnSelected)
+    // setColumnClick(columnSelected)
 
     // Upgrade [isChoice] for the clicked column
     setIsChoice((prevChoices) =>
@@ -49,10 +32,8 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
         i !== index ? null : prevChoice
       )
     )
-    // Alternate between 0-1 to determinate function to be called
-    setClickCount((prevCount) => (prevCount + 1) % 2)
     // Call function with column index 
-    functionExecuted(index)
+     functionExecuted(index)
   }
 
 
@@ -61,7 +42,8 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
    * @param {number} index 
    */
   const functionExecuted = (index) => {
-    if (clickCount === 0) {
+
+    if (isChoice[index]===null || isChoice[index]===false) {
       handleClickUp(index)
     } else {
       handleClickDown(index)
