@@ -1,18 +1,15 @@
-// Sélecteur pour accéder au tableau de tout les employés
+// Selector to access the array of all employees
 export const selectEmployees = (state) => state.employeeSlice.employees
 
-// Sélecteur pour avoir le nombre total d'employés
+// Selector to have the total number of employees
 export const selectTotalEmployees = (state) => selectEmployees(state).length
 
-// Sélecteur pour un employé via l'index
-export const selectEmployeeByIndex = (index) => (state) => {
-  const employees = selectEmployees(state);
-  return employees[index]
-}
-
-// Sélécteur pour récupérer le tableau d'index correspondant à la recherche
+// Selector to retrieve the array corresponding to the search
 export const selectSearch = (state)=>state.searchSlice.results
 export const selectTotalSearch = (state)=>selectSearch(state).length
 
+// Selector to know which column is selected
 export const selectColumn = (state)=>state.otherSlice.columnIndex
+
+// Selector to know the number of entries for the list of employees table
 export const selectEntries = (state)=>state.otherSlice.nbEntries

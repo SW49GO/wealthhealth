@@ -2,18 +2,32 @@ import { changeColumnIndex, saveSearch } from '../../features/store'
 import { sortingEmployees } from '../../utils/sortingEmployees'
 import Styles from '../../styles/tableReact.module.css'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { selectColumn } from '../../features/selector'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-
 
 function ColumnTable({ dataColumns, dataRows, widthColumn}) {
   const dispatch = useDispatch()
+
+  const columnSelected = useSelector(selectColumn)
+  // State to check column clicked
+  const [columnClick, setColumnClick]=useState(null)
 
   // Status array for each column initializing to null
   const [isChoice, setIsChoice] = useState(new Array(dataColumns.length).fill(null))
   // Count 0-1 for toggle function
   const [clickCount, setClickCount] = useState(0)
+
+  useEffect(() => {
+    // Check if the column have changed
+    if (columnClick !== null && columnClick !== columnSelected) {
+      // Passed [clickCount] to 0
+      setClickCount(0)
+    }
+    // Update column clicked
+    setColumnClick(columnSelected)
+  }, [columnSelected, columnClick])
 
   /**
    * Function to initialize functions and states when clicked on column
@@ -21,7 +35,8 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
    */
   const toggleIcon = (index) => {
     dispatch(changeColumnIndex(index))
-  
+    setColumnClick(columnSelected)
+
     // Upgrade [isChoice] for the clicked column
     setIsChoice((prevChoices) =>
       prevChoices.map((prevChoice, i) =>

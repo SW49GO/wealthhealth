@@ -9,25 +9,35 @@ import { states } from '../../datas/states'
 function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const indexColumn = useSelector(selectColumn)
 
-  //To remove a line of data employee, turn removeEntrieEmployee to 'true'
+  //To remove a line of data employee, turn removeEntrieEmployee to 'true' (for Dev)
   const removeEntrieEmployee = false
   const dispatch = useDispatch()
   const employees = useSelector(selectEmployees)
   // State to show datas of one employee
   const [showData, setShowData]= useState(null)
 
+  /**
+   * Function to allow delete an employee for Dev
+   * or function to show Employee informations under media querie <=768px
+   * @param {number} index 
+   * @param {*} event 
+   */
   const handleClickRow=(index, event)=>{
     if(removeEntrieEmployee){
       const copyEmployee = [...employees]
       copyEmployee.splice(index,1)
       dispatch(removeEmployee(copyEmployee))
     }else{
-      setShowData(index)
-      if (event) {
-        event.stopPropagation()
+      const screenWidth = window.innerWidth
+      if (screenWidth <= 768) {
+        setShowData(index)
+        if (event) {
+          event.stopPropagation()
+        }
       }
     }
   }
+
 
   return (
     <>

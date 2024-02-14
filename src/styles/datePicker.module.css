@@ -12,6 +12,7 @@ padding: 5px;
 border: 1px solid #000;
 border-radius: 5px;
 background: rgb(66 214 188);
+z-index: 20;
 }
 .calendar{
 width: auto;

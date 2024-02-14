@@ -3,10 +3,10 @@
  * @param {array} data 
  * @param {number} index 
  * @param {string} sorts 
- * @returns 
+ * @returns {array} 
  */
 export function sortingEmployees(data ,index , sorts){
-
+    // Retrieve the key by the index
     const filterColumn = Object.keys(data[0])[index]
     const newData = [...data]
         if (sorts==='asc'){
@@ -35,12 +35,13 @@ export function sortingEmployees(data ,index , sorts){
             }
         }
     }
-    /**
-     * Function to convert format string Date
-     * @param {string} dateString 
-     * @returns 
-     */
-    function convertStringToDate(dateString) {
-        const [day, month, year] = dateString.split('/');
-        return new Date(year, month - 1, day);
-    }
+
+/**
+ * Function to convert format string Date
+ * @param {string} dateString 
+ * @returns 
+ */
+function convertStringToDate(dateString) {
+    const [day, month, year] = dateString.split('/');
+    return new Date(year, month - 1, day);
+}

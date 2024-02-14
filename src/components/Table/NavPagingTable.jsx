@@ -2,13 +2,12 @@
 import Styles from '../../styles/tableReact.module.css'
 import PropTypes from 'prop-types'
 function NavPagingTable({currentPage,totalPages,nbEntries,totalEntries,setCurrentPage}){
-  
+  //Function to manage paging
     const handlePrevPage = () => {
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1)
       }
     }
-
     const handleNextPage = () => {
       if (currentPage < totalPages) {
         setCurrentPage(currentPage + 1)

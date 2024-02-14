@@ -10,6 +10,9 @@ const persistConfig = {
   whitelist: ['employees']
 }
 
+/**
+ * Slice to store list of employees in persist store
+ */
 const employeeSlice = createSlice({
     name: 'employeeSlice',
     initialState: {
@@ -45,6 +48,9 @@ const employeeSlice = createSlice({
     }
   })
 
+  /**
+   * Slice to store the result of a search
+   */
 const searchSlice = createSlice({
   name: 'searchSlice',
   initialState: {
@@ -56,7 +62,9 @@ const searchSlice = createSlice({
     }
   }
 })
-
+/**
+ * Slice to store column selected and number entries by page
+ */
 const otherSlice = createSlice({
   name: 'otherSlice',
   initialState:{
