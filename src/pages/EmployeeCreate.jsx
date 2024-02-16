@@ -21,7 +21,7 @@ function EmployeeCreate(){
      * Function to save employee in persist store
      * @param {object} data 
      */
-    function SaveEmployee (data){
+    function SaveEmployee(data){
          // Default values
          if (!('states' in data)) { data.states = 'AL'}
          if (!('department' in data)) { data.department = 'Engineering'}
@@ -77,7 +77,7 @@ function EmployeeCreate(){
         <div className="container-createEmployee">
             <h2>Create Employee</h2>
             <Link to={`/Employee`}>View Current Employees</Link>
-            <form id="create-employee" onSubmit={handleSubmit(SaveEmployee)}>
+            <form id="create-employee" onSubmit={handleSubmit(SaveEmployee)} data-testid='create-employee'>
                 <div className='createEmployee'>
                     <fieldset>
                         <legend>Identity</legend>

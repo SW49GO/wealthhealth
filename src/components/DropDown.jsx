@@ -59,9 +59,9 @@ function DropDown({data, onSelect, ASC, initialOption}){
                 <div>{isOpen ? <FaCaretUp/> : <FaCaretDown/>}</div>
             </div>
             {isOpen &&
-            <div ref={listRef} className={Styles.list}>
+            <div ref={listRef} className={Styles.list} data-testid='dropDownList'>
                 {datas.map((item,index)=>(
-                    <div data-option={item.name} style={{padding:5}} key={index} onClick={() => {item.abbreviation ? handleOptionSelected([item.abbreviation, item.name]) :handleOptionSelected(item.name)}}
+                    <div data-testid={`option-${item.name}`} data-option={item.name} style={{padding:5}} key={index} onClick={() => {item.abbreviation ? handleOptionSelected([item.abbreviation, item.name]) :handleOptionSelected(item.name)}}
                     onMouseOver={(event) => {
                         event.target.style.backgroundColor = `#d3cdcd`
                       }}
@@ -77,7 +77,7 @@ function DropDown({data, onSelect, ASC, initialOption}){
     )
 }
 DropDown.propTypes={
-    data: PropTypes.object,
+    data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     onSelect: PropTypes.func,
     ASC: PropTypes.bool,
     initialOption: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
