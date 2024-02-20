@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "immer": "^10.0.3",
+    "jest": "^27.5.1",
     "modal-react-sw49go": "^0.2.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

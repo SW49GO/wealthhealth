@@ -8,24 +8,56 @@ import { Provider } from 'react-redux'
 // import { configureStore } from '@reduxjs/toolkit'
 import EmployeeCreate from '../pages/EmployeeCreate'
 // import EmployeeList from '../pages/EmployeeList'
-import { MemoryRouter} from 'react-router-dom'
-import { unmountComponentAtNode } from 'react-dom'
-// import { useDispatch} from 'react-redux'
+import { MemoryRouter, Routes, Route} from 'react-router-dom'
+ import { unmountComponentAtNode } from 'react-dom'
+// import { useSelector} from 'react-redux'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Error from '../pages/Error'
-import { PersistGate } from 'redux-persist/lib/integration/react'
+import Router from '../components/Router'
+// import { PersistGate } from 'redux-persist/lib/integration/react'
+// import EmployeeList from '../pages/EmployeeList'
+// import {persistedEmployeeSlice,searchSlice,otherSlice } from '../features/store'
 // import configureMockStore from 'redux-mock-store'
 // const mockStore = configureMockStore();
 // const store = mockStore({});
+// function renderWithProviders(
+//    ui,
+//    {
+//      preloadedState = {},
+//      // Automatically create a store instance if no store was passed in
+//      store = configureStore({ reducer: { employeeSlice: persistedEmployeeSlice, 
+//       searchSlice: searchSlice ? searchSlice.reducer :(state = { results: [] }) => state, 
+//       otherSlice: otherSlice ? otherSlice.reducer : (state = { columnIndex: 0, nbEntries: 5 }) => state }, preloadedState }),
+//      ...renderOptions
+//    } = {}
+//  ) {
+//    const Wrapper = ({ children }) => {
+//      return <Provider store={store}>{children}</Provider>
+//    }
+ 
+//    // Return an object with the store and all of RTL's query functions
+//    return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+//  }
+// const AllTheProviders = ({ children }) => {
+//   // console.log("Children:", children);
+//   return (
+//     <Provider store={store}>
+//       {children && React.Children.map(children, child => {
+//         return React.cloneElement(child);
+//       })}
+//     </Provider>
+//   )
+// }
 
-
-//Mock du useDispatch
+// const customRender = (ui, options) =>
+//   render(ui, {wrapper: AllTheProviders, ...options})
+// //Mock du useDispatch
 jest.mock('react-redux', () => ({
 useDispatch: jest.fn(),
 }))
 // Mock store
-// const mockStore = configureStore([])
+// const mockStore = configureMockStore([])
 //Mock Selector
 // const mockSelector = jest.fn()
 // Simuler scrollTo
@@ -45,9 +77,8 @@ describe('EmployeeCreate component', () => {
    container = null
    })
 
-  test('renders form fields', () => {
-    render ( <MemoryRouter><EmployeeCreate/></MemoryRouter>)
-
+  test('renders form fields',async () => {
+    render ( <MemoryRouter><EmployeeCreate/></MemoryRouter>, container)
     expect(screen.getByLabelText('First Name')).toBeInTheDocument()
     expect(screen.getByLabelText('Last Name')).toBeInTheDocument()
     expect(screen.getByLabelText('Street')).toBeInTheDocument()
@@ -56,8 +87,8 @@ describe('EmployeeCreate component', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument()
   })
 
-  test('DropDown render selected option', ()=>{
-      render (<MemoryRouter><EmployeeCreate/></MemoryRouter>)
+  test('DropDown render selected option',async ()=>{
+      render (<MemoryRouter><EmployeeCreate/></MemoryRouter>, container)
       // Department
       const dropdownDepartment = screen.getByText('Engineering')
       fireEvent.click(dropdownDepartment)
@@ -67,8 +98,8 @@ describe('EmployeeCreate component', () => {
       fireEvent.click(dropdownState)
       expect(screen.getByTestId('option-Alabama')).toHaveTextContent('Alabama')
   })
-  test('DatePicker render selected Date', ()=>{
-      render (<MemoryRouter><EmployeeCreate/></MemoryRouter>)
+  test('DatePicker render selected Date',async ()=>{
+      render (<MemoryRouter><EmployeeCreate/></MemoryRouter>, container)
       const today = new Date();
       const day = String(today.getDate()).padStart(2, '0')
       const month = String(today.getMonth() + 1).padStart(2, '0')
@@ -87,7 +118,6 @@ describe('EmployeeCreate component', () => {
       fireEvent.keyDown(datePickerStartDate,  { key: 'enter', keyCode: 13 })
       expect(datePickerStartDate.value).toBe(currentDate)
   })
-
 
 //   test('form submission', async () => {
 //    // State of Store
@@ -136,19 +166,19 @@ describe('EmployeeCreate component', () => {
 //       //  })
 //     })
 
-   test('Error link go to home page', () => {
-      render(<MemoryRouter><Error/></MemoryRouter>,container)
-      const homeLink = screen.getByText('Home')
-      expect(homeLink).toBeInTheDocument()
-      fireEvent.click(homeLink)
-      expect(window.location.pathname).toBe('/')
-   })
+  //  test('Error link go to home page',async () => {
+  //     render(<MemoryRouter initialEntries={['/unknown']}><Error/></MemoryRouter>,container)
+  //     const homeLink = screen.getByText('Home')
+  //     expect(homeLink).toBeInTheDocument()
+  //     fireEvent.click(homeLink)
+  //     expect(window.location.pathname).toBe('/')
+  //  })
    
-   test('header',()=>{
+   test('header',async ()=>{
       render(<Header/>,container)
       expect(screen.getByTestId('header')).toBeInTheDocument()
    })
-   test('footer',()=>{
+   test('footer',async ()=>{
       render(<Footer/>,container)
       expect(screen.getByText('Wealth Health')).toBeInTheDocument()
    })

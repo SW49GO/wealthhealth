@@ -47,10 +47,10 @@ if(dataColumns.length === Object.keys(dataRows[0]).length){
         <NavSearchInTable/>
         <table className={Styles.containerTable}>
             <thead>
-                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} widthColumn={widthColumn} dataRows={dataRows} backgroundRow={'234, 234, 234'}/>}
+                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} widthColumn={widthColumn} dataRows={dataRows}/>}
             </thead>
             <tbody>
-                <RowTable widthColumn={widthColumn} backgroundRow={'234, 234, 234'} getCurrentPageData={getCurrentPageData}/>
+                <RowTable widthColumn={widthColumn} backgroundRow={'66,214,188'} getCurrentPageData={getCurrentPageData}/>
             </tbody>
             <tfoot></tfoot>
         </table>
