@@ -18,7 +18,6 @@ function ColumnTable({ dataColumns, dataRows, widthColumn}) {
    */
   const toggleIcon = (index) => {
     dispatch(changeColumnIndex(index))
-    // setColumnClick(columnSelected)
 
     // Upgrade [isChoice] for the clicked column
     setIsChoice((prevChoices) =>

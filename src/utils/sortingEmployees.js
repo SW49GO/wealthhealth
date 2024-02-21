@@ -41,7 +41,7 @@ export function sortingEmployees(data ,index , sorts){
  * @param {string} dateString 
  * @returns 
  */
-function convertStringToDate(dateString) {
+export function convertStringToDate(dateString) {
     const [day, month, year] = dateString.split('/');
     return new Date(year, month - 1, day);
 }

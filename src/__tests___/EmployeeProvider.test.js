@@ -1,19 +1,16 @@
 import React from 'react'
-import { render, screen, fireEvent, waitFor} from '@testing-library/react'
+import { render, screen, fireEvent} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { store,} from '../features/store'
 import { Provider } from 'react-redux'
 import EmployeeCreate from '../pages/EmployeeCreate'
 import Router from '../components/Router'
 import Error from '../pages/Error'
-import Footer from '../components/Footer'
 import EmployeeList from '../pages/EmployeeList'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import NavPagingTable from '../components/Table/NavPagingTable'
-import TableReact from '../components/Table/TableReact'
-import employeesData from '../datas/employeesData'
-const columns = ['First Name','Last Name', 'Start Date','Date of Birth', 'Department','Street','City','State','Zip Code']
-
+import ColumnTable from '../components/Table/ColumnTable'
+import * as sortingEmployeesModules  from '../utils/sortingEmployees'
 
 const AllTheProviders = ({ children }) => {
     // console.log("Children:", children);
@@ -50,6 +47,25 @@ describe('EmployeeList component',()=>{
     expect (screen.getByText('Search:')).toBeInTheDocument()
     expect (screen.getByText('Next')).toBeInTheDocument()
   })
+
+  test('Render ColumnTable',()=>{
+    const mockSortingEmployees = jest.fn()
+    jest.spyOn(sortingEmployeesModules, 'sortingEmployees').mockImplementation(mockSortingEmployees)
+    const columns=['Name','Age','Adresses']
+    const dataRows = [{ Name: 'Sonia', Age: 54, Adresses: 'Somewhere over the rainbow' }];
+    const sortedDataRows = [{ Name: 'Sonia', Age: 54, Adresses: 'Somewhere over the rainbow'}]
+    mockSortingEmployees.mockReturnValue(sortedDataRows)
+
+    customRender(<MemoryRouter><ColumnTable dataColumns={columns} dataRows={dataRows}/></MemoryRouter>)
+    
+    expect (screen.getByText('Adresses')).toBeInTheDocument()
+    const headers = screen.getAllByRole('columnheader')
+    expect(headers).toHaveLength(columns.length)
+    const nameColumn = screen.getByText('Name')
+    fireEvent.click(nameColumn)
+    expect(mockSortingEmployees).toHaveBeenCalled()
+  })
+
   test('Render NavPagingInTable', ()=>{
     const mockSetCurrentPage = jest.fn()
     customRender(<MemoryRouter><NavPagingTable currentPage={1} totalPages={5} nbEntries={10} totalEntries={50} setCurrentPage={() => { mockSetCurrentPage() } }/></MemoryRouter>)
@@ -59,7 +75,7 @@ describe('EmployeeList component',()=>{
       expect(mockSetCurrentPage).toHaveBeenCalled()
   })
 
-  test('EmployeeList link go to home page',async () => {
+  test('EmployeeList link go to home page',() => {
     customRender(<Router><EmployeeList/></Router>)
     expect (screen.getByText('Current Employees')).toBeInTheDocument()
     expect (screen.getByText('Home')).toBeInTheDocument()
@@ -67,12 +83,24 @@ describe('EmployeeList component',()=>{
     expect(screen.getByText('View Current Employees')).toBeInTheDocument()
     expect(window.location.pathname).toBe('/')
   })
+
+  test('Router test Routes Error',()=>{
+   customRender(
+    <MemoryRouter initialEntries={['/unknown']}>
+      <Routes>
+        <Route path="/" element={<EmployeeCreate />} />
+        <Route path="/Employee" element={<EmployeeList />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </MemoryRouter>
+    )
+    expect(screen.getByText('Une erreur est survenue...')).toBeInTheDocument()
+  })
 })
 
 describe('Error component',()=>{
-  test('Error link go to home page',async () => {
-    // customRender(<Router><EmployeeList/></Router>)
-    customRender(<MemoryRouter initialEntries={['/unknown']}><Error/></MemoryRouter>)
+  test('Error link go to home page',() => {
+    customRender(<MemoryRouter><Error/></MemoryRouter>)
     expect(screen.getByText('Une erreur est survenue...')).toBeInTheDocument()
     expect(screen.getByText('Home')).toBeInTheDocument()
     fireEvent.click(screen.getByText('Home'))
