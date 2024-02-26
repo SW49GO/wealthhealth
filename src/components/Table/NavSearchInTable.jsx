@@ -39,7 +39,7 @@ function NavSearchInTable(){
          <div className={Styles.employeeSearch}>
             <div>
                 <span>Show </span>
-                <select name="selectNbEntries" value={selectedEntries} onChange={handleSelectChangeEntries}>
+                <select name="selectNbEntries" value={selectedEntries} onChange={handleSelectChangeEntries} data-testid="selectNbEntries">
                     {entries.map((item,index)=>(
                     <option key={index} >{item.name}</option>
                     ))}
@@ -47,7 +47,7 @@ function NavSearchInTable(){
                 <span> entries</span>
             </div>
             <div>
-            Search: <input type="search" name="search"  onChange={handleInputChange}/>
+            Search: <input type="search" name="search"  onChange={handleInputChange} data-testid="inputSearch"/>
             </div>
         </div>
         </>

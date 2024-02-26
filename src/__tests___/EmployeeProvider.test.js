@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { store,} from '../features/store'
+import {saveSearch, store, changeNbEntries} from '../features/store'
 import { Provider } from 'react-redux'
 import EmployeeCreate from '../pages/EmployeeCreate'
 import Router from '../components/Router'
@@ -11,9 +11,13 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import NavPagingTable from '../components/Table/NavPagingTable'
 import ColumnTable from '../components/Table/ColumnTable'
 import * as sortingEmployeesModules  from '../utils/sortingEmployees'
+import NavSearchInTable from '../components/Table/NavSearchInTable'
+import configureStore  from 'redux-mock-store'
+
+const mockStore = configureStore([])
+
 
 const AllTheProviders = ({ children }) => {
-    // console.log("Children:", children);
     return (
       <Provider store={store}>
         {children && React.Children.map(children, child => {
@@ -59,12 +63,45 @@ describe('EmployeeList component',()=>{
     customRender(<MemoryRouter><ColumnTable dataColumns={columns} dataRows={dataRows}/></MemoryRouter>)
     
     expect (screen.getByText('Adresses')).toBeInTheDocument()
-    const headers = screen.getAllByRole('columnheader')
-    expect(headers).toHaveLength(columns.length)
-    const nameColumn = screen.getByText('Name')
-    fireEvent.click(nameColumn)
+    expect(screen.getAllByRole('columnheader')).toHaveLength(columns.length)
+    fireEvent.click(screen.getByText('Name'))
     expect(mockSortingEmployees).toHaveBeenCalled()
   })
+
+  test('Render NavSearchInTable', async()=>{
+    const initialState = {
+      employeeSlice:{
+        employees: [{firstName: 'Albert'},{firstName: 'Robert'}]
+      } ,
+      otherSlice: {
+        columnIndex:0,
+        nbEntries: 5
+      },
+      searchSlice:{
+        results:[]
+      }
+    }
+    const store = mockStore(initialState)
+
+    store.dispatch = jest.fn((action) => {
+      if (action.type === saveSearch.type) {
+        store.getState().searchSlice.results = action.payload
+      }
+      if (action.type === changeNbEntries.type){
+        store.getState().otherSlice.nbEntries = action.payload      }    
+    })
+    render (<Provider store={store}><MemoryRouter><NavSearchInTable/></MemoryRouter></Provider>)
+
+    expect(screen.getByTestId('inputSearch')).toBeInTheDocument()
+    fireEvent.change(screen.getByTestId('inputSearch'), { target: { value: 'a' } })
+    expect(store.dispatch).toHaveBeenCalledWith(saveSearch([{firstName: 'Albert'}]))
+    const updatedState = store.getState()
+    expect(updatedState.searchSlice.results).toHaveLength(1)
+
+    expect(screen.getByTestId('selectNbEntries')).toBeInTheDocument()
+    fireEvent.change(screen.getByTestId('selectNbEntries'), { target: { value: '10' } })
+    expect(store.dispatch).toHaveBeenCalledWith(changeNbEntries('10'))
+    })
 
   test('Render NavPagingInTable', ()=>{
     const mockSetCurrentPage = jest.fn()
