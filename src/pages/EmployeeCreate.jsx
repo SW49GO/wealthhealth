@@ -49,7 +49,7 @@ function EmployeeCreate(){
         setValue('department', upperCaseFirstLetter(selectOption))
      }
     const handleOptionState=(selectOption)=>{
-         setValue('states', selectOption)
+         setValue('states', upperCaseFirstLetter(selectOption))
      }
      // Saving values ​​in the form from DatePicker
      const handleDateSelectedBirth=(dateChoose)=>{
