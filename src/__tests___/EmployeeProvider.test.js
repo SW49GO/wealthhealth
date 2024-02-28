@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent} from '@testing-library/react'
+import { render, screen, fireEvent, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import {saveSearch, store, changeNbEntries} from '../features/store'
 import { Provider } from 'react-redux'
@@ -10,11 +10,14 @@ import EmployeeList from '../pages/EmployeeList'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import NavPagingTable from '../components/Table/NavPagingTable'
 import ColumnTable from '../components/Table/ColumnTable'
+import RowTable from '../components/Table/RowTable'
 import * as sortingEmployeesModules  from '../utils/sortingEmployees'
 import NavSearchInTable from '../components/Table/NavSearchInTable'
 import configureStore  from 'redux-mock-store'
+import employeesData from '../datas/employeesData'
 
 const mockStore = configureStore([])
+let removeEntrieEmployee = false
 
 
 const AllTheProviders = ({ children }) => {
@@ -66,6 +69,29 @@ describe('EmployeeList component',()=>{
     expect(screen.getAllByRole('columnheader')).toHaveLength(columns.length)
     fireEvent.click(screen.getByText('Name'))
     expect(mockSortingEmployees).toHaveBeenCalled()
+  })
+
+  test('Render RowTable',()=>{
+    const getCurrentPageData=jest.fn(()=>employeesData)
+    customRender(<MemoryRouter><RowTable getCurrentPageData={getCurrentPageData}/></MemoryRouter>)
+    expect(screen.getByText('Goldman')).toBeInTheDocument()
+    expect(screen.getByText('11/03/2024')).toBeInTheDocument()
+    expect(screen.getByText('Angers')).toBeInTheDocument()
+    expect(getCurrentPageData).toHaveBeenCalled()
+    fireEvent.click(screen.getByText('Goldman'))
+    expect(getCurrentPageData).toHaveBeenCalled()
+  })
+
+  test('Render Modal information in Media Queries Mobile',()=>{
+    const getCurrentPageData=jest.fn(()=>employeesData)
+    Object.defineProperty(window, 'innerWidth', { value: 700 })
+    customRender(<MemoryRouter><RowTable getCurrentPageData={getCurrentPageData}/></MemoryRouter>)
+    expect(screen.getByText('Lyon')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('Lyon'))
+    // Button Close Modal
+    expect(screen.getByText('X')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('X'))
+    expect(screen.queryByText('X')).not.toBeInTheDocument()
   })
 
   test('Render NavSearchInTable', async()=>{

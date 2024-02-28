@@ -11,9 +11,10 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
 
   //To remove a line of data employee, turn removeEntrieEmployee to 'true' (for Dev)
   const removeEntrieEmployee = false
+  
   const dispatch = useDispatch()
   const employees = useSelector(selectEmployees)
-  // State to show datas of one employee
+  // State to show datas of one employee on media Mobile
   const [showData, setShowData]= useState(null)
 
   /**

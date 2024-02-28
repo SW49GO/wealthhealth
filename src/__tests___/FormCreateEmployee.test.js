@@ -61,17 +61,17 @@ describe('EmployeeCreate Form', ()=>{
            fireEvent.click(datePickerStartDate)
            fireEvent.keyDown(datePickerStartDate,  { key: 'enter', keyCode: 13 })
            expect(datePickerStartDate.value).toBe(currentDate)
-     
+           
         //Soumission du formulaire
-           fireEvent.submit(screen.getByTestId('create-employee'))
+        fireEvent.submit(screen.getByTestId('create-employee'))
         await waitFor(() => {
             expect(screen.getByText('Employee Created!')).toBeInTheDocument()
           })
-          await waitFor(() => {
-            const updatedState = store.getState().employeeSlice.employees
-            // Testing if number of keys more than 0, so not empty
-            expect(Object.keys(updatedState).length).toBeGreaterThan(0)
-          })
+        await waitFor(() => {
+        const updatedState = store.getState().employeeSlice.employees
+        // Testing if number of keys more than 0, so not empty
+        expect(Object.keys(updatedState).length).toBeGreaterThan(0)
+        })
 
 
     })
