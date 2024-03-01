@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from 'react'
 import { selectEntries, selectTotalEmployees, selectTotalSearch} from '../../features/selector'
 import Styles from '../../styles/tableReact.module.css'
-import React, { useState, useEffect } from 'react'
 import NavSearchInTable from "./NavSearchInTable"
 import NavPagingTable from "./NavPagingTable"
 import {useSelector} from 'react-redux'

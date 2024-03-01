@@ -6299,7 +6299,7 @@ jest-worker@^28.0.2:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-"jest@^27.0.0 || ^28.0.0", jest@^27.4.3, jest@^27.5.1:
+"jest@^27.0.0 || ^28.0.0", jest@^27.4.3:
   version "27.5.1"
   resolved "https://registry.npmjs.org/jest/-/jest-27.5.1.tgz"
   integrity sha512-Yn0mADZB89zTtjkPJEXwrac3LHudkQMR+Paqa8uxJHCBr9agxztUifWCyiYrjhMPBoUVBjyny0I7XH6ozDr7QQ==
@@ -6799,10 +6799,10 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.6"
 
-modal-react-sw49go@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.npmjs.org/modal-react-sw49go/-/modal-react-sw49go-0.2.5.tgz"
-  integrity sha512-c1u5UWcDbiMbfijSejidZif//oplRgA6acZdrVy/566UypNnSEfwlZTHBBWLzG7sBS8Na0pOYsx3HfUdDDnk3g==
+modal-react-sw49go@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.npmjs.org/modal-react-sw49go/-/modal-react-sw49go-0.2.6.tgz"
+  integrity sha512-OVIRjzkY5fosBRlQoR0mJ75JTtIsi6E/ED0/QK4/28wcphMxOPgWtSaRFkqRoOr+zHSDpOcuxzeTr9sA/mlhKA==
   dependencies:
     "@testing-library/jest-dom" "^5.17.0"
     "@testing-library/react" "^13.4.0"
@@ -8045,22 +8045,17 @@ react-hook-form@^7.50.1:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.50.1.tgz"
   integrity sha512-3PCY82oE0WgeOgUtIr3nYNNtNvqtJ7BZjsbxh6TnYNbXButaD5WpjOmTjdxZfheuHKR68qfeFnEDVYoSSFPMTQ==
 
-"react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^17.0.1:
-  version "17.0.2"
-  resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
-  integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-is@^18.0.0:
-  version "18.2.0"
-  resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
-  integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+react-is@^17.0.1:
+  version "17.0.2"
+  resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
+  integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-is@^18.2.0:
+react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
@@ -8148,24 +8143,7 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-shallow-renderer@^16.15.0:
-  version "16.15.0"
-  resolved "https://registry.npmjs.org/react-shallow-renderer/-/react-shallow-renderer-16.15.0.tgz"
-  integrity sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==
-  dependencies:
-    object-assign "^4.1.1"
-    react-is "^16.12.0 || ^17.0.0 || ^18.0.0"
-
-react-test-renderer@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-18.2.0.tgz"
-  integrity sha512-JWD+aQ0lh2gvh4NM3bBM42Kx+XybOxCpgYK7F8ugAlpaTSnWsX+39Z4XkOykGZAHrjwwTZT3x3KxswVWxHPUqA==
-  dependencies:
-    react-is "^18.2.0"
-    react-shallow-renderer "^16.15.0"
-    scheduler "^0.23.0"
-
-"react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", react@^18.0, react@^18.0.0, react@^18.2.0, "react@>= 16", react@>=16.8:
+"react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", react@^18.0, react@^18.0.0, react@^18.2.0, "react@>= 16", react@>=16.8:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

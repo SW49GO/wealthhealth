@@ -1,7 +1,7 @@
 function Header(){
     return(
         <div className="header" data-testid="header">
-            <img className="headerTitle" src="./assets/title.png" alt="Titre du site"/>
+            <img className="headerTitle" fetchpriority="low" src="./assets/title.webp" width="1" height="1" alt="Titre du site"/>
         </div>
     )
 }

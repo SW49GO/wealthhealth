@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent, waitFor} from '@testing-library/react'
+import { render, screen, fireEvent} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import {saveSearch, store, changeNbEntries} from '../features/store'
 import { Provider } from 'react-redux'
@@ -17,8 +17,6 @@ import configureStore  from 'redux-mock-store'
 import employeesData from '../datas/employeesData'
 
 const mockStore = configureStore([])
-let removeEntrieEmployee = false
-
 
 const AllTheProviders = ({ children }) => {
     return (

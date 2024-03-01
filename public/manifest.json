@@ -1,0 +1,23 @@
+{
+    "name": "HRnet",
+    "short_name": "MonApp",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "./assets/iconHRnet192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "maskable"
+      },
+      {
+        "src": "./assets/iconHRnet512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff"
+  }
+  

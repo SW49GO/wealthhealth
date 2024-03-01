@@ -1,9 +1,10 @@
+import React, { useState } from 'react'
 import { selectEntries,selectEmployees, selectColumn } from '../../features/selector'
 import { changeNbEntries,  saveSearch  } from '../../features/store'
 import Styles from '../../styles/tableReact.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import {entries} from '../../datas/entries'
-import React, { useState } from 'react'
+
 
 function NavSearchInTable(){
     const dispatch = useDispatch()
@@ -39,7 +40,7 @@ function NavSearchInTable(){
          <div className={Styles.employeeSearch}>
             <div>
                 <span>Show </span>
-                <select name="selectNbEntries" value={selectedEntries} onChange={handleSelectChangeEntries} data-testid="selectNbEntries">
+                <select aria-label="Show entries" name="selectNbEntries" value={selectedEntries} onChange={handleSelectChangeEntries} data-testid="selectNbEntries">
                     {entries.map((item,index)=>(
                     <option key={index} >{item.name}</option>
                     ))}
@@ -47,7 +48,8 @@ function NavSearchInTable(){
                 <span> entries</span>
             </div>
             <div>
-            Search: <input type="search" name="search"  onChange={handleInputChange} data-testid="inputSearch"/>
+                    <label htmlFor="inputSearch" className="sr-only">Champ de recherche d'un employée</label>
+            Search: <input id="inputSearch" type="search" name="search"  onChange={handleInputChange} data-testid="inputSearch"/>
             </div>
         </div>
         </>
