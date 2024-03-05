@@ -41,23 +41,22 @@ function TableReact({dataColumns, dataRows}){
       return dataRows.slice(startIndex, endIndex)
     }
 
-// If the key value number matches the column number
-if(dataColumns.length === Object.keys(dataRows[0]).length){
-    return(<>
-        <NavSearchInTable/>
-        <table className={Styles.containerTable}>
-            <thead>
-                {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} widthColumn={widthColumn} dataRows={dataRows}/>}
-            </thead>
-            <tbody>
-                <RowTable widthColumn={widthColumn} backgroundRow={'66,214,188'} getCurrentPageData={getCurrentPageData}/>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-        <NavPagingTable currentPage={parseInt(currentPage)} totalPages={parseInt(totalPages)} nbEntries={parseInt(nbEntries)} totalEntries={parseInt(totalEntries)} setCurrentPage={setCurrentPage}/>
-    </>)
-}
-
+  // If the key value number matches the column number
+  if(dataColumns.length === Object.keys(dataRows[0]).length && dataRows.length > 0){
+      return(<>
+          <NavSearchInTable/>
+          <table className={Styles.containerTable}>
+              <thead>
+                  {dataColumns.length>0 &&<ColumnTable dataColumns={dataColumns} widthColumn={widthColumn} dataRows={dataRows}/>}
+              </thead>
+              <tbody>
+                  <RowTable widthColumn={widthColumn} backgroundRow={'66,214,188'} getCurrentPageData={getCurrentPageData}/>
+              </tbody>
+              <tfoot></tfoot>
+          </table>
+          <NavPagingTable currentPage={parseInt(currentPage)} totalPages={parseInt(totalPages)} nbEntries={parseInt(nbEntries)} totalEntries={parseInt(totalEntries)} setCurrentPage={setCurrentPage}/>
+      </>)
+  }
 }
 
 TableReact.propTypes = {

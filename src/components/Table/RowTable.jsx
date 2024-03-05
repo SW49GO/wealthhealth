@@ -5,13 +5,14 @@ import {removeEmployee} from '../../features/store'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { states } from '../../datas/states'
+import { FaRegTrashAlt } from "react-icons/fa"
 
 function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const indexColumn = useSelector(selectColumn)
 
-  //To remove a line of data employee, turn removeEntrieEmployee to 'true' (for Dev)
-  const removeEntrieEmployee = false
-  
+  // Index of selected employee to remove
+  const [removeEmployeeList, setRemoveEmployeeList]= useState(null)
+
   const dispatch = useDispatch()
   const employees = useSelector(selectEmployees)
   // State to show datas of one employee on media Mobile
@@ -24,11 +25,7 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
    * @param {*} event 
    */
   const handleClickRow=(index, event)=>{
-    if(removeEntrieEmployee){
-      const copyEmployee = [...employees]
-      copyEmployee.splice(index,1)
-      dispatch(removeEmployee(copyEmployee))
-    }else{
+    setRemoveEmployeeList(index)
       const screenWidth = window.innerWidth
       if (screenWidth <= 768) {
         setShowData(index)
@@ -36,6 +33,21 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
           event.stopPropagation()
         }
       }
+  }
+
+  /**
+   * Function to remove an employee
+   * @param {number} index 
+   */
+  const handleRemoveEmployee=(index)=>{
+    const selectedEmployee = getCurrentPageData()[index]
+    const copyEmployee = [...employees]
+    const currentEmployee = copyEmployee.findIndex(employee =>{
+      return employee.firstName === selectedEmployee.firstName && employee.lastName === selectedEmployee.lastName && employee.city === selectedEmployee.city
+    })
+    if(currentEmployee !== -1){
+      copyEmployee.splice(parseInt(currentEmployee), 1)
+      dispatch(removeEmployee(copyEmployee))
     }
   }
 
@@ -52,11 +64,13 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
           }}
           onMouseOver={(event) => {
             event.target.parentElement.style.backgroundColor = `rgba(${backgroundRow}, 1)`
+            setRemoveEmployeeList(index)
           }}
           onMouseOut={(event) => {
             event.target.parentElement.style.backgroundColor = index % 2 === 0 ? `rgba(${backgroundRow}, 0.4)` : `rgba(${backgroundRow}, 0.2)`
+            setRemoveEmployeeList(null)
           }}
-          onClick={()=>{handleClickRow(index)}}
+          onClick={(event)=>{handleClickRow(index,event)}}
         >
           {Object.keys(item).map((key, tdIndex) => (
             <td className={Styles.tdRow}
@@ -71,17 +85,20 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
             </td>
           ))}
            {showData === index && (
-          <td colSpan={Object.keys(item).length} >
-            <div className={Styles.infosEmployee}>
-              <p className={Styles.closeInfosEmployee}  onClick={(event) => {event.stopPropagation(); setShowData(null)}}>X</p>
-              <p>Employee : {item.firstName} {item.lastName}</p>
-              <p>Dates : S:{item.startDate} B:{item.dateOfBirth}</p>
-              <p>Department: {item.department}</p>
-              <p>Adresses: {item.street} </p>
-              <p>&emsp;&emsp; {item.zipCode} {item.city}</p>
-              <p>State: {states.find(state => state.abbreviation === item.states)?.name} </p>
-            </div>
-          </td>
+            <td colSpan={Object.keys(item).length} >
+              <div className={Styles.infosEmployee}>
+                <p className={Styles.closeInfosEmployee}  onClick={(event) => {event.stopPropagation(); setShowData(null)}}>X</p>
+                <p>Employee : {item.firstName} {item.lastName}</p>
+                <p>Dates : S:{item.startDate} B:{item.dateOfBirth}</p>
+                <p>Department: {item.department}</p>
+                <p>Adresses: {item.street} </p>
+                <p>&emsp;&emsp; {item.zipCode} {item.city}</p>
+                <p>State: {states.find(state => state.abbreviation === item.states)?.name} </p>
+              </div>
+            </td>
+        )}
+        {removeEmployeeList === index && (
+          <td className={Styles.removeEmployee} onClick={()=>handleRemoveEmployee(index)}><FaRegTrashAlt/></td>
         )}
         </tr>
       ))}

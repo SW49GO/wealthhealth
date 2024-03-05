@@ -52,9 +52,10 @@ padding: 4px 10px;
 }
 .infosEmployee{
     position: absolute;
-    left:40%;
-    width: 20rem;
+    left:20%;
+    width: 16rem;
     padding: 0.5rem;
+    font-size: 1rem;
     background-color: #ededed;
     border:1px solid #000;
     border-radius: 10px;
@@ -63,9 +64,18 @@ padding: 4px 10px;
 }
 .closeInfosEmployee{
     position:relative;
-    right:-19.5rem;
-    top:-1rem;
+    right: -15.5rem;
+    top: -0.5rem;
 }
+.removeEmployee{
+    position: relative;
+    top:0;
+    right: 1.8rem;
+}
+.removeEmployee:hover{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 767.8px){
     .containerTable{
         font-size: 0.5rem;
@@ -76,12 +86,7 @@ padding: 4px 10px;
     .employeeSearch, .navContainerPage{
         font-size: 0.7rem;
     }
-    .infosEmployee{
-        width: 10rem;
+    .removeEmployee{
+        right: 1.1rem;
     }
-    .closeInfosEmployee{
-        right: -9.5rem;
-        top: -0.5rem;
-    }
-    
 }

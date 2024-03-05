@@ -5,5 +5,6 @@
 - Date picker plugin
 - Drop-down menus
 - Plugin for data tables
+
 ### It contains an npm package to replace the JQuery modal :
 - modal-react-sw49go : version 0.2.6

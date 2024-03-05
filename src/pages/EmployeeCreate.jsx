@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
 import { useUpperCaseFistLetter } from '../hooks/useUpperCaseFirstLetter'
+import { selectSearch } from '../features/selector'
 import { createEmployee} from '../features/store'
 import DatePicker from '../components/DatePicker'
 import {departments} from '../datas/departments'
+import { saveSearch } from '../features/store'
 import {ModalReact} from 'modal-react-sw49go'
 import DropDown from '../components/DropDown'
 import { useForm}  from 'react-hook-form'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import {states} from '../datas/states'
 
 
 function EmployeeCreate(){
-    const { register, handleSubmit, reset, setValue} = useForm()
     const dispatch =useDispatch()
 
+    const { register, handleSubmit, reset, setValue} = useForm()
+    // State for ModalReact
+    const [isOpen,setIsOpen]=useState(false)
+
+    // Clear the last search
+    const resultSearch = useSelector(selectSearch)
+    if(resultSearch){
+        dispatch(saveSearch(''))
+    }
     // Custom hook to capitalize first letter
     const upperCaseFirstLetter= useUpperCaseFistLetter
 
@@ -59,7 +69,7 @@ function EmployeeCreate(){
     const handleDateSelectedStart=(dateChoose)=>{
         setValue('startDate', dateChoose)
     }
-    const [isOpen,setIsOpen]=useState(false)
+
 
     return(
         <>
@@ -83,8 +93,7 @@ function EmployeeCreate(){
                     <fieldset>
                         <legend>Identity</legend>
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName"  {...register('firstName', {setValueAs: (value) => upperCaseFirstLetter(value)})}/>
-
+                        <input type="text" id="firstName" required {...register('firstName', {setValueAs: (value) => upperCaseFirstLetter(value)})}/>
                         <label htmlFor="lastName">Last Name</label>
                         <input type="text" id="lastName" required  {...register('lastName', {setValueAs: (value) => upperCaseFirstLetter(value)})}/>
                         <DatePicker idInput={'dateOfBirth'}  textLabel={'Date of Birth'} onSelect={handleDateSelectedBirth}/>

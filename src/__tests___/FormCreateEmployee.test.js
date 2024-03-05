@@ -3,7 +3,7 @@ import { render , screen, fireEvent, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { Provider } from 'react-redux'
 import EmployeeCreate from '../pages/EmployeeCreate'
-import { createEmployee } from '../features/store'
+import { createEmployee, saveSearch } from '../features/store'
 import configureStore from 'redux-mock-store'
 import { MemoryRouter } from 'react-router-dom'
 
@@ -17,13 +17,19 @@ describe('EmployeeCreate Form', ()=>{
         const initialState = {
            employeeSlice:{
              employees: []
-           } 
+           },
+           searchSlice:{
+            results: []
+           }
          }
          const store = mockStore(initialState)
      
          store.dispatch = jest.fn((action) => {
            if (action.type === createEmployee.type) {
              store.getState().employeeSlice.employees = action.payload
+           }
+           if (action.type === saveSearch.type){
+            store.getState().searchSlice.results = action.payload
            }
          })
      

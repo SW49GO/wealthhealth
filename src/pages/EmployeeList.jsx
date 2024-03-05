@@ -7,8 +7,7 @@ function EmployeeList(){
 
   // Retrieve result of a search
     const resultSearch = useSelector(selectSearch)
-    const allEmployees = useSelector(selectEmployees)
-
+    let allEmployees = useSelector(selectEmployees)
   //Definition of table header elements
   const columns = ['First Name','Last Name', 'Start Date','Date of Birth', 'Department','Street','City','State','Zip Code']
 

@@ -18,6 +18,7 @@ import employeesData from '../datas/employeesData'
 
 const mockStore = configureStore([])
 
+
 const AllTheProviders = ({ children }) => {
     return (
       <Provider store={store}>

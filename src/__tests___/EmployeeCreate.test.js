@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 
 jest.mock('react-redux', () => ({
 useDispatch: jest.fn(),
+useSelector: jest.fn(),
 }))
 
 // Simuler scrollTo
@@ -49,6 +50,7 @@ describe('EmployeeCreate component', () => {
       fireEvent.click(dropdownState)
       expect(screen.getByTestId('option-Alabama')).toHaveTextContent('Alabama')
   })
+  
   test('DatePicker render selected Date',async ()=>{
       render (<MemoryRouter><EmployeeCreate/></MemoryRouter>, container)
       const today = new Date();
@@ -78,4 +80,4 @@ describe('EmployeeCreate component', () => {
       expect(screen.getByText('Wealth Health')).toBeInTheDocument()
    })
 
-})
+ })
