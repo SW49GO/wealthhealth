@@ -19,6 +19,6 @@
 - NodeJS v18.16.0 : [NodeJS](https://nodejs.org/en/)
 
 ### Installation :
--1- Clone the repositorie : https://github.com/SW49GO/wealthhealth
--2- Install dependencies : npm install
--3- Launch application : npm start
+- 1- Clone the repositorie : https://github.com/SW49GO/wealthhealth
+- 2- Install dependencies : npm install
+- 3- Launch application : npm start
