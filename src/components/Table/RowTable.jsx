@@ -10,6 +10,9 @@ import { FaRegTrashAlt } from "react-icons/fa"
 function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
   const indexColumn = useSelector(selectColumn)
 
+  // For DEV : Initialization used delete an employee
+  const removeDev = false
+
   // Index of selected employee to remove
   const [removeEmployeeList, setRemoveEmployeeList]= useState(null)
 
@@ -40,14 +43,16 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
    * @param {number} index 
    */
   const handleRemoveEmployee=(index)=>{
-    const selectedEmployee = getCurrentPageData()[index]
-    const copyEmployee = [...employees]
-    const currentEmployee = copyEmployee.findIndex(employee =>{
-      return employee.firstName === selectedEmployee.firstName && employee.lastName === selectedEmployee.lastName && employee.city === selectedEmployee.city
-    })
-    if(currentEmployee !== -1){
-      copyEmployee.splice(parseInt(currentEmployee), 1)
-      dispatch(removeEmployee(copyEmployee))
+    if(removeDev){
+      const selectedEmployee = getCurrentPageData()[index]
+      const copyEmployee = [...employees]
+      const currentEmployee = copyEmployee.findIndex(employee =>{
+        return employee.firstName === selectedEmployee.firstName && employee.lastName === selectedEmployee.lastName && employee.city === selectedEmployee.city
+      })
+      if(currentEmployee !== -1){
+        copyEmployee.splice(parseInt(currentEmployee), 1)
+        dispatch(removeEmployee(copyEmployee))
+      }
     }
   }
 
@@ -97,7 +102,7 @@ function RowTable({backgroundRow, getCurrentPageData, widthColumn }) {
               </div>
             </td>
         )}
-        {removeEmployeeList === index && (
+        {removeEmployeeList === index && removeDev === true &&(
           <td className={Styles.removeEmployee} onClick={()=>handleRemoveEmployee(index)}><FaRegTrashAlt/></td>
         )}
         </tr>
