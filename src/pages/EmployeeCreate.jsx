@@ -22,7 +22,7 @@ function EmployeeCreate(){
 
     // Clear the last search
     const resultSearch = useSelector(selectSearch)
-    if(resultSearch.length>0){
+    if(resultSearch && resultSearch.length>0){
         dispatch(saveSearch(''))
     }
     // Custom hook to capitalize first letter
